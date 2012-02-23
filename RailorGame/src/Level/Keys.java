@@ -11,6 +11,7 @@ public class Keys {
 	public static final int KEY_Q = KeyEvent.VK_Q;
 	public static final int KEY_E = KeyEvent.VK_E;
 	public static final int KEY_Z = KeyEvent.VK_Z;
+	public static final int KEY_B = KeyEvent.VK_B;
 	public Key key_up = new Key(KEY_UP);
 	public Key key_left = new Key(KEY_LEFT);
 	public Key key_down = new Key(KEY_DOWN);

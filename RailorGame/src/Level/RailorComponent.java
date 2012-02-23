@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 
+
 import Entity.Entity;
 import Entity.Player;
 import Networking.NetworkClient;
@@ -41,6 +42,7 @@ public class RailorComponent extends Canvas implements Runnable {
 	public Player myPlayer;
 	public ArrayList<String> chatText = new ArrayList<String>();
 	public boolean started = false;
+	public boolean paused = false;
 	public TurnSynchronizer turnSynchronizer = new TurnSynchronizer();
 	public boolean multiplayer = false;
 	public boolean isServer = false;
@@ -60,7 +62,7 @@ public class RailorComponent extends Canvas implements Runnable {
 		this.addKeyListener(new KeyHandler());
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		loadImages();
-		this.setVisible(true);
+		//this.setVisible(true);
 
 	}
 
@@ -124,7 +126,7 @@ public class RailorComponent extends Canvas implements Runnable {
 			System.out.println("Failed to load images");
 		}
 	}
-
+	
 	public void run() {
 		if (started) {
 			level.gameTick++;
@@ -166,22 +168,23 @@ public class RailorComponent extends Canvas implements Runnable {
 			
 			
 		}
-			
-		else{
-			if (!isServer) {
-				if (client != null) {
-					//String str = "CLIENT: Tick: " +  " Number:" + TurnSynchronizer.synchedRandom.nextInt(20);
-					//client.sendMessage(str);
-				}
-			}else {
-			//	System.out.println("SERVER: Tick: " +  " Number:" + TurnSynchronizer.synchedRandom.nextInt(20));
+		if(!started){
+			if(isServer && server != null){
+				server.startTick();
+			}
+			if(!isServer && client!= null){
+				client.startTick();
+		}
+			if(isServer && server != null){
+				server.endTick();
 			}
 			
-		}
-		
+			if(!isServer && client!= null){
+				client.endTick();
+			}
 	}
 
-
+	}
 	
 
 	public void draw(Graphics g) {
@@ -190,22 +193,10 @@ public class RailorComponent extends Canvas implements Runnable {
 			if(myPlayer!= null){
 				screen.owner=myPlayer;
 				screen.drawEntities(level.getEntities(), g);
-			//}else
-				//level.players.get(0).screen.drawEntities(level.getEntities(), g);
-			
 			}else{
 				screen.drawEntities(level.getEntities(), g);
 			}
 			}
-		//if(isServer){
-			
-			//for(int count = 0; count < chatText.size();count++){
-			//	g.setColor(Color.BLUE);
-		//		g.drawString(chatText.get(count), 20, count*15+50);
-		//	}
-			
-		
-		
 	}
 	public void addText(String str){
 		if(chatText.size()>=30){
@@ -245,31 +236,11 @@ public class RailorComponent extends Canvas implements Runnable {
 			if (started && myPlayer!= null) {
 				myPlayer.keys.keyPressed(e);
 			}
-				/*
-				for (Entity x : level.entities) {
-
-					if (x instanceof Player) {
-
-						Player temp = (Player) x;
-						temp.keys.keyPressed(e);
-					}
-				}
-			}
-			*/
-
 		}
 
 		public void keyReleased(KeyEvent e) {
 			if (started && myPlayer != null) {
 				myPlayer.keys.keyReleased(e);
-				/*
-				for (Entity x : level.entities) {
-					if (x instanceof Player) {
-						Player temp = (Player) x;
-						temp.keys.keyReleased(e);
-					}
-				}
-				*/
 			}
 			if (e.getKeyCode() == Keys.KEY_Q) {
 				System.out.println("Pressed q");
@@ -282,6 +253,13 @@ public class RailorComponent extends Canvas implements Runnable {
 			if (e.getKeyCode() == Keys.KEY_E) {
 				System.out.println("Pressed e");
 				newClient();
+			}
+			if (e.getKeyCode() == Keys.KEY_B) {
+				System.out.println("Pressed b");
+				if(isServer){
+				started=!started;
+				server.pauseAll(!started);
+				}
 			}
 		}
 

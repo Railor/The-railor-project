@@ -3,6 +3,7 @@ package Networking;
 import java.util.Random;
 
 
+
 public class TurnSynchronizer {
     public static Random synchedRandom = new Random();
     public static Random unsynchedRandom = new Random();

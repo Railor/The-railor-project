@@ -113,7 +113,16 @@ public class SimpleWindowedGame {
 										+ "Diff:"
 										+ (canvas.client.lastServerTick - canvas.level.gameTick),
 								20, 60);
+						if(canvas.started==false){
+							g2d.drawString("Game Paused", canvas.screen.w/2, canvas.screen.h/2);
+						}
 						//System.out.println("GameTick: " + Long.toString(canvas.level.gameTick) + "Last Server Tick: " + canvas.client.lastServerTick + "Diff:" + (canvas.client.lastServerTick - canvas.level.gameTick));
+					}
+					if(canvas.server != null){
+						if(canvas.started==false){
+							g2d.drawString("Game Paused", canvas.screen.w/2, canvas.screen.h/2);
+							g2d.drawString("Press 'B' to unpause", canvas.screen.w/2-30, canvas.screen.h/2+20);
+						}
 					}
 				}
 				g2d.drawString(String.format("FPS: %s", fps), 20, 40);

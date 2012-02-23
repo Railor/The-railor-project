@@ -3,6 +3,7 @@ package Entity;
 
 import java.awt.image.BufferedImage;
 
+
 import Art.Bitmap;
 import Level.Location;
 import Networking.TurnSynchronizer;

@@ -10,6 +10,7 @@ import Level.RailorComponent;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -38,6 +39,16 @@ public class NetworkServer {
 			addMessage(l,c.getID());
 		}
 	}
+	public void pauseAll(boolean pause){
+		for (Connection c : server.getConnections()) {
+			if(pause)
+				c.sendTCP("pause");
+			else
+				c.sendTCP("unpause");
+		}
+		endTick();
+	}
+
 	public void broadcastPlayerUpdate(int id){
 		for (Connection c : server.getConnections()) {
 			for(Player p : rc.level.players){
@@ -116,8 +127,11 @@ public class NetworkServer {
 	}
 	public void endTick(){
 		//System.out.println("endtick");
+		if(rc.started){
 		broadcastPlayersUpdate(false);
+	
 		sendNetworkCommands();
+	}
 		clearAllNetworkCommands();
 	}
 	public void sendNetworkCommands(){

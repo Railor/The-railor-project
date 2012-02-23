@@ -3,6 +3,7 @@ package Networking;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import Entity.Entity;
 import Entity.Player;
 import Level.Key;
@@ -67,6 +68,14 @@ public class NetworkClient {
 
 			public void received(Connection connection, Object object) {
 				// System.out.println("asdsad");
+				if(object instanceof String){
+					System.out.println(object.toString());
+					if(object.toString().compareTo("pause")==0){
+						rc.started=false;
+					}else if(object.toString().compareTo("unpause")==0){
+						rc.started=true;
+					}
+				}
 				if (object instanceof NetworkCommands) {
 					NetworkCommands ncs = (NetworkCommands) object;
 					lastServerTick = ncs.getGameTick();
@@ -147,23 +156,12 @@ public class NetworkClient {
 		if (object instanceof Location) {
 
 			Location l = (Location) object;
-			// System.out.println(l.getID() + "asdsad");
-			// System.out.println(l.getID());
-			// if(clientID == 1){
-			// System.out.println("inside location");
-			// }
-
 			if (l.getID() <= 0) {
 
 				l.setID(l.getID() * -1);
 				Player p = rc.level.getPlayerById(l.getID());
-				// if(p!= null && p != rc.myPlayer){
-				// System.out.println(rc.level.gameTick);
 				p.setLocation(l);
-
-				// }
 			} else {
-				// System.out.println("non player entity update");
 				Entity et = rc.level.getEntityById(l.getID());
 				if (et != null)
 					et.setLocation(l);
@@ -172,13 +170,16 @@ public class NetworkClient {
 			}
 
 		}
+		
+		
 	}
 
 	public void startTick() {
-		performTick();
-		//while (performTick()) {
+		//performTick();
+		if(rc.started)
+		while (performTick()) {
 
-		//}
+	}
 
 	}
 
