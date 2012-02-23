@@ -1,6 +1,9 @@
 package Entity;
 
 
+import java.awt.image.BufferedImage;
+
+import Art.Bitmap;
 import Level.Location;
 import Networking.TurnSynchronizer;
 
@@ -16,15 +19,23 @@ public class Entity {
 	public boolean collided = false;
 	int id;
 	public int type = 0;
-	public Entity(){
-		
-	}
+	public int currentFrame = 0;
+	public int frameSpeed = 6;
+	public int dir = 0;
+	Bitmap sprite;
+	
 	public Entity(int x, int y){
 		xpos = x;
 		ypos = y;
 		fx = xpos;
 		fy = ypos;
+		sprite = Art.Art.ENTITY_BALL;
 	}
+	public BufferedImage getSprite(){
+		
+		return sprite.getSprite(currentFrame / frameSpeed, (dir >= sprite.maxH ? 0 : dir));
+	}
+	
 	public void setLocation(Location l){
 		this.xpos=l.getX();
 		this.ypos=l.getY();
@@ -36,6 +47,10 @@ public class Entity {
 		
 	}
 	public void tick(){
+		currentFrame++;
+		if(currentFrame/frameSpeed>=sprite.maxW )
+			currentFrame=0;
+		
 		collided= false;
 		fx+=TurnSynchronizer.synchedRandom.nextInt(15)-7;
 		fy+=TurnSynchronizer.synchedRandom.nextInt(15)-7;

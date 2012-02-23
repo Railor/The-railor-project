@@ -68,7 +68,7 @@ public class Screen {
 	}
 	public void drawEntities(ArrayList<Entity> entities, Graphics g) {
 		for(Entity e : entities){
-			g.drawImage(rc.entityGraphics[0],e.getX() - screenX,e.getY() - screenY,e.getWidth(),e.getHeight(),null);
+			g.drawImage(e.getSprite(),e.getX() - screenX,e.getY() - screenY,e.getWidth(),e.getHeight(),null);
 		}
 		
 	}

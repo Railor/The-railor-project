@@ -1,5 +1,6 @@
 package Entity;
 
+import Art.Bitmap;
 import Level.Keys;
 import Level.Location;
 import Level.RailorComponent.KeyHandler;
@@ -10,7 +11,7 @@ public class Player extends Entity{
 	public Keys keys = new Keys();
 	//public Screen screen;
 	public int clientID = 0;
-	public Player(int x, int y){
+	public Player(Bitmap b,int x, int y){
 		super(x, y);
 		type=1;
 	}

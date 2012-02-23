@@ -39,15 +39,6 @@ public class Level {
 	}
 
 	public void tick() {
-		// if(rc.isServer){
-		// rc.server.sendMessage(rc.isServer + ": " +
-		// TurnSynchronizer.synchedRandom.nextInt(50) + "Tick:" + gameTick);
-		// }
-		// System.out.println(rand.nextInt(5) + "| " + rand2.nextInt(5));
-		// System.out.println(rand.nextInt(5) + "| " + rand2.nextInt(5));
-		// System.out.println(rand.nextInt(5) + "| " + rand2.nextInt(5));
-		// System.out.println(rand.nextInt(5) + "| " + rand2.nextInt(5));
-		// System.out.println(rand.nextInt(5) + "| " + rand2.nextInt(5));
 
 		entitiesTick();
 		// System.out.println("current tick is" + gameTick + rc.isServer);
