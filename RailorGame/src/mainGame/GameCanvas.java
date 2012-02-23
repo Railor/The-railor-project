@@ -109,11 +109,6 @@ public class GameCanvas {
 										+ "Diff:"
 										+ (canvas.client.lastServerTick - canvas.level.gameTick),
 								20, 60);
-						// System.out.println("GameTick: " +
-						// Long.toString(canvas.level.gameTick) +
-						// "Last Server Tick: " + canvas.client.lastServerTick +
-						// "Diff:" + (canvas.client.lastServerTick -
-						// canvas.level.gameTick));
 					}
 				}
 				g2d.drawString(String.format("FPS: %s", fps), 20, 40);
