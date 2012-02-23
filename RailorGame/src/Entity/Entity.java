@@ -8,10 +8,10 @@ import Level.Location;
 import Networking.TurnSynchronizer;
 
 public class Entity {
-	protected int xpos = 0;
-	protected int ypos = 0;
-	protected int lastx;
-	protected int lasty;
+	public int xpos = 0;
+	public int ypos = 0;
+	public int lastx;
+	public int lasty;
 	protected int fx = 25;
 	protected int fy = 25;
 	protected int width = 45;
@@ -19,12 +19,14 @@ public class Entity {
 	protected int radius = width;
 	private boolean removeMe = false;
 	public boolean collided = false;
+	public int moveSpeed = 5;
 	int id;
 	public int type = 0;
 	public int currentFrame = 0;
 	public int frameSpeed = 6;
 	public int dir = 0;
 	public boolean dirType = false;
+	
 	Bitmap sprite;
 	
 	public Entity(int x, int y){
@@ -32,7 +34,7 @@ public class Entity {
 		ypos = y;
 		fx = xpos;
 		fy = ypos;
-		sprite = Art.Art.ENTITY_BALL;
+		sprite = Art.Art.BITMAP_ENTITY_BALL;
 	}
 	public BufferedImage getSprite(){
 		
@@ -40,10 +42,15 @@ public class Entity {
 	}
 	
 	public void setLocation(Location l){
+		//if(lastx != xpos)
+			//lastx = xpos;
+			//if(lasty != ypos)
+		//	lasty= ypos;
 		this.xpos=l.getX();
 		this.ypos=l.getY();
 		this.fx=l.getX();
 		this.fy=l.getY();
+		
 	}
 	public Location getLocation(){
 		return new Location(id,xpos,ypos);
@@ -54,7 +61,9 @@ public class Entity {
 		currentFrame++;
 		if(currentFrame/frameSpeed>=sprite.maxW )
 			currentFrame=0;
+		//if(lastx != xpos)
 		lastx = xpos;
+		//if(lasty != ypos)
 		lasty= ypos;
 		
 

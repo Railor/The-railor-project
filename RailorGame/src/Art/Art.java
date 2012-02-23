@@ -13,14 +13,15 @@ public class Art {
 	////////////////////////////////////////////////////////////
 	//////////////////////////ENTITYS///////////////////////////
 	////////////////////////////////////////////////////////////
-	public static Bitmap ENTITY_BALL = new Bitmap(setupImage("herr_von_speck_sheet_32"), 26, 32);
+	public static Bitmap BITMAP_ENTITY_PLAYER = new Bitmap(setupImage("herr_von_speck_sheet_32"), 26, 32);
+	public static Bitmap BITMAP_ENTITY_BALL = new Bitmap(setupImage("entities"), 64, 64);
 	////////////////////////////////////////////////////////////
 	//////////////////////////TILES/////////////////////////////
 	////////////////////////////////////////////////////////////
-	public static BitmapTile TILE_GRASS = new BitmapTile(setupImage("tiles",0,0,64,64),64,64,true);
-	public static BitmapTile TILE_GRASS_WALL = new BitmapTile(setupImage("tiles",64,0,64,64),64,64,false);
-	public static BitmapTile TILE_DIRT = new BitmapTile(setupImage("tiles",128,0,64,64),64,64, true);
-	public static BitmapTile TILE_DIRT_WALL = new BitmapTile(setupImage("tiles",0,64,64,64),64,64,false);
+	public static BitmapTile BITMAP_TILE_GRASS = new BitmapTile(setupImage("tiles",0,0,64,64),64,64,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL = new BitmapTile(setupImage("tiles",64,0,64,64),64,64,false);
+	public static BitmapTile BITMAP_TILE_DIRT = new BitmapTile(setupImage("tiles",128,0,64,64),64,64, true);
+	public static BitmapTile BITMAP_TILE_DIRT_WALL = new BitmapTile(setupImage("tiles",0,64,64,64),64,64,false);
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////

@@ -67,16 +67,16 @@ public class RailorComponent extends Canvas implements Runnable {
 	public void startGame(int playerID) {
 		level = new Level(20, 20, this);
 		screen = new Screen(this, GAME_WIDTH, GAME_HEIGHT);
-		Player p = new Player(Art.Art.ENTITY_BALL,0, 0);
+		Player p = new Player(0, 0);
 		level.createPlayer(p);
 		p.clientID=1;
-		p = new Player(Art.Art.ENTITY_BALL,100, 0);
+		p = new Player(200, 0);
 		level.createPlayer(p);
 		p.clientID=2;
-		p = new Player(Art.Art.ENTITY_BALL,0, 100);
+		p = new Player(0, 200);
 		level.createPlayer(p);
 		p.clientID=3;
-		p = new Player(Art.Art.ENTITY_BALL,100, 100);
+		p = new Player(200, 200);
 		level.createPlayer(p);
 		started = true;
 		p.clientID=4;

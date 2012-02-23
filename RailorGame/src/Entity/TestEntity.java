@@ -7,8 +7,7 @@ import Networking.TurnSynchronizer;
 public class TestEntity extends Entity{
 	public TestEntity(int x, int y){
 		super(x,y);
-		xpos = x;
-		ypos = y;
+		sprite = Art.Art.BITMAP_ENTITY_BALL;
 	}
 	public void tick(){
 		super.tick();

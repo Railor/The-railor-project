@@ -24,7 +24,7 @@ public class Level {
 
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				levelMap[x][y] = new Tile(Art.Art.TILE_GRASS);
+				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
 			}
 		}
 		for (int x = 0; x < 20; x++) {
@@ -241,35 +241,7 @@ public class Level {
 						
 						
 					}
-					/*
-					Entity e2 = entities.get(y);
-					int e1x = e1.getFX(),e2x = e2.getFX(),e1y = e1.getFY(),e2y = e2.getFY();
 					
-					boolean colb=false,colx=false,coly=false;
-					///////////////////both axis
-					if (collideEntity(entities.get(x), entities.get(y))) {
-						colb=true;
-						e1.setFY(e1.getY());
-						if (collideEntity(entities.get(x), entities.get(y))) {
-							colx=true;
-						}else{
-							
-						}
-						///////////////////only y axis collision
-						e1.setFY(e1y);
-						e1.setFX(e1.getX());
-						if (collideEntity(entities.get(x), entities.get(y))) {
-							coly=true;
-						}
-					}else{
-						
-					}
-					/////////////////////Only x axis collision
-					
-					*/
-					//if(col==3){
-						
-				//	}
 				}
 			}
 			entities.get(x).setX(entities.get(x).getFX());

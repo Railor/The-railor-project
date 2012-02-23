@@ -43,7 +43,7 @@ public class NetworkServer {
 			for(Player p : rc.level.players){
 				Location l = p.getPlayerLocation();
 				l.setID(p.getClientId() *-1);
-				if(p.getClientId()==c.getID()){
+				if(p.getClientId()==id){
 					addMessage(l,c.getID());
 				}
 			}
