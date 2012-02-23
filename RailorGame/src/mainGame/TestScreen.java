@@ -12,10 +12,7 @@ import javax.swing.*;
 
 import Level.Keys;
 	
-	/*************************************************************
-         *	TextPanel Class (with main method)
-	 *************************************************************/
-	
+
 	class TestScreen extends JPanel {
 	  // override the paintComponent method
 	  // THE MAIN DEMO OF THIS EXAMPLE:
