@@ -1,0 +1,17 @@
+package Level;
+
+import java.awt.image.BufferedImage;
+
+public class Tile {
+	public static final int TILE_GRASS = 0;
+	public static final int TILE_GRASS_WALL = 1;
+	public BufferedImage tile;
+	boolean  isPassable = true;
+	public Tile(Bitmap TILE_TYPE){
+		tile=TILE_TYPE;
+		if(tile == 1)
+			isPassable = false;
+		else
+			tile=0;
+	}
+}

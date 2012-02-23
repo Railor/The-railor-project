@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="25" version="2.0">
+<workbench progressCount="28" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="25" y="25">
 <fastViewData fastViewLocation="1024"/>
@@ -32,26 +32,85 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
+<part id="8"/>
+<part id="9"/>
+<part id="10"/>
+<part id="11"/>
+<part id="12"/>
+<part id="13"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Bitmap.java" partName="Bitmap.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Art/Bitmap.java" title="Bitmap.java" tooltip="RailorGame/src/Art/Bitmap.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Art/Bitmap.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="27" selectionOffset="368" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Art.java" partName="Art.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Art/Art.java" title="Art.java" tooltip="RailorGame/src/Art/Art.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Art/Art.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="714" selectionTopPixel="11"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameCanvas.java" partName="GameCanvas.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/mainGame/GameCanvas.java" title="GameCanvas.java" tooltip="RailorGame/src/mainGame/GameCanvas.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameCanvas.java" partName="GameCanvas.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/mainGame/GameCanvas.java" title="GameCanvas.java" tooltip="RailorGame/src/mainGame/GameCanvas.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/mainGame/GameCanvas.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="431" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3035" selectionTopPixel="1003"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SimpleWindowedGame.java" partName="SimpleWindowedGame.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/mainGame/SimpleWindowedGame.java" title="SimpleWindowedGame.java" tooltip="RailorGame/src/mainGame/SimpleWindowedGame.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/mainGame/SimpleWindowedGame.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="565" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TestScreen.java" partName="TestScreen.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/mainGame/TestScreen.java" title="TestScreen.java" tooltip="RailorGame/src/mainGame/TestScreen.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/mainGame/TestScreen.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="927" selectionTopPixel="315"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RailorComponent.java" partName="RailorComponent.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Level/RailorComponent.java" title="RailorComponent.java" tooltip="RailorGame/src/Level/RailorComponent.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Level/RailorComponent.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4482" selectionTopPixel="1421"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Entity.java" partName="Entity.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Entity/Entity.java" title="Entity.java" tooltip="RailorGame/src/Entity/Entity.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Entity/Entity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1758" selectionTopPixel="671"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkClient.java" partName="NetworkClient.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Networking/NetworkClient.java" title="NetworkClient.java" tooltip="RailorGame/src/Networking/NetworkClient.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Networking/NetworkClient.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1783" selectionTopPixel="570"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Screen.java" partName="Screen.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Level/Screen.java" title="Screen.java" tooltip="RailorGame/src/Level/Screen.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Level/Screen.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1630" selectionTopPixel="371"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Tile.java" partName="Tile.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Level/Tile.java" title="Tile.java" tooltip="RailorGame/src/Level/Tile.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Level/Tile.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="219" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BitmapTile.java" partName="BitmapTile.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Art/BitmapTile.java" title="BitmapTile.java" tooltip="RailorGame/src/Art/BitmapTile.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Art/BitmapTile.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="243" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Level.java" partName="Level.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Level/Level.java" title="Level.java" tooltip="RailorGame/src/Level/Level.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Level/Level.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6109" selectionTopPixel="41"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkServer.java" partName="NetworkServer.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Networking/NetworkServer.java" title="NetworkServer.java" tooltip="RailorGame/src/Networking/NetworkServer.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Networking/NetworkServer.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3029" selectionTopPixel="1101"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Location.java" partName="Location.java" path="C:/Users/Tyson/Desktop/Coding/GitHub/RailorGame/src/Level/Location.java" title="Location.java" tooltip="RailorGame/src/Level/Location.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RailorGame/src/Level/Location.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Errors"/>
+<category IMemento.internal.id="Warnings (20 items)"/>
+</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -112,10 +171,12 @@
 <view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
 </view>
-<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
+<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration">
+<viewState/>
+</view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
@@ -174,11 +235,11 @@
 <perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
-<view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
 <fastViewBars/>
@@ -250,18 +311,166 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Art/Bitmap.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Level/RailorComponent.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Art/Art.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/mainGame/GameCanvas.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Level/Screen.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Art/Bitmap.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Level/Tile.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Art/BitmapTile.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Level/Level.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Networking/NetworkClient.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Networking/NetworkServer.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RailorGame/src/Level/Location.java"/>
 </editors>
-<item historyLabel="Bitmap.java" index="0">
+<item historyLabel="BitmapTile.java" index="5">
+<position info="not_deleted" x="236" y="0"/>
+</item>
+<item historyLabel="Tile.java" index="4">
+<position info="not_deleted" x="321" y="0"/>
+</item>
+<item historyLabel="Tile.java" index="4">
+<position info="not_deleted" x="223" y="4"/>
+</item>
+<item historyLabel="Tile.java" index="4">
+<position info="not_deleted" x="250" y="0"/>
+</item>
+<item historyLabel="BitmapTile.java" index="5">
+<position info="not_deleted" x="243" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
 <position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Tile.java" index="4">
+<position info="not_deleted" x="219" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="627" y="0"/>
 </item>
 <item historyLabel="Art.java" index="1">
+<position info="not_deleted" x="714" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="560" y="0"/>
+</item>
+<item historyLabel="Bitmap.java" index="3">
+<position info="not_deleted" x="395" y="0"/>
+</item>
+<item historyLabel="Art.java" index="1">
+<position info="not_deleted" x="714" y="0"/>
+</item>
+<item historyLabel="Bitmap.java" index="3">
+<position info="not_deleted" x="366" y="0"/>
+</item>
+<item historyLabel="Screen.java" index="2">
+<position info="not_deleted" x="1630" y="0"/>
+</item>
+<item historyLabel="Bitmap.java" index="3">
+<position info="not_deleted" x="368" y="27"/>
+</item>
+<item historyLabel="Art.java" index="1">
+<position info="not_deleted" x="1639" y="0"/>
+</item>
+<item historyLabel="RailorComponent.java" index="0">
+<position info="not_deleted" x="1331" y="0"/>
+</item>
+<item historyLabel="Art.java" index="1">
+<position info="not_deleted" x="1576" y="0"/>
+</item>
+<item historyLabel="Tile.java" index="4">
+<position info="not_deleted" x="219" y="0"/>
+</item>
+<item historyLabel="BitmapTile.java" index="5">
+<position info="not_deleted" x="243" y="0"/>
+</item>
+<item historyLabel="Bitmap.java" index="3">
+<position info="not_deleted" x="368" y="27"/>
+</item>
+<item historyLabel="Art.java" index="1">
+<position info="not_deleted" x="714" y="0"/>
+</item>
+<item historyLabel="RailorComponent.java" index="0">
+<position info="not_deleted" x="3156" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="5648" y="0"/>
+</item>
+<item historyLabel="NetworkClient.java" index="7">
+<position info="not_deleted" x="1010" y="0"/>
+</item>
+<item historyLabel="RailorComponent.java" index="0">
+<position info="not_deleted" x="3156" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="7615" y="0"/>
+</item>
+<item historyLabel="NetworkServer.java" index="8">
+<position info="not_deleted" x="3342" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="7615" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="6293" y="0"/>
+</item>
+<item historyLabel="NetworkClient.java" index="7">
+<position info="not_deleted" x="1097" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="6293" y="0"/>
+</item>
+<item historyLabel="NetworkClient.java" index="7">
+<position info="not_deleted" x="3168" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="6293" y="0"/>
+</item>
+<item historyLabel="RailorComponent.java" index="0">
+<position info="not_deleted" x="5840" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="6109" y="0"/>
+</item>
+<item historyLabel="NetworkServer.java" index="8">
+<position info="not_deleted" x="3438" y="0"/>
+</item>
+<item historyLabel="NetworkClient.java" index="7">
+<position info="not_deleted" x="4707" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="6120" y="0"/>
+</item>
+<item historyLabel="NetworkClient.java" index="7">
+<position info="not_deleted" x="4707" y="0"/>
+</item>
+<item historyLabel="NetworkClient.java" index="7">
+<position info="not_deleted" x="4004" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="5826" y="0"/>
+</item>
+<item historyLabel="NetworkServer.java" index="8">
+<position info="not_deleted" x="1297" y="0"/>
+</item>
+<item historyLabel="Location.java" index="9">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item active="true" historyLabel="GameCanvas.java" index="2">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="6109" y="0"/>
+</item>
+<item historyLabel="NetworkServer.java" index="8">
+<position info="not_deleted" x="3029" y="0"/>
+</item>
+<item historyLabel="Level.java" index="6">
+<position info="not_deleted" x="6109" y="0"/>
+</item>
+<item historyLabel="RailorComponent.java" index="0">
+<position info="not_deleted" x="4482" y="0"/>
+</item>
+<item active="true" historyLabel="NetworkClient.java" index="7">
+<position info="not_deleted" x="4010" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -269,6 +478,14 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="left"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="org.eclipse.ui.editorss"/>
+<trimItem IMemento.internal.id="right"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@61390255"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 <trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
@@ -281,14 +498,50 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Location.java" tooltip="RailorGame/src/Level/Location.java">
+<persistable path="/RailorGame/src/Level/Location.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkServer.java" tooltip="RailorGame/src/Networking/NetworkServer.java">
+<persistable path="/RailorGame/src/Networking/NetworkServer.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Level.java" tooltip="RailorGame/src/Level/Level.java">
+<persistable path="/RailorGame/src/Level/Level.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BitmapTile.java" tooltip="RailorGame/src/Art/BitmapTile.java">
+<persistable path="/RailorGame/src/Art/BitmapTile.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Tile.java" tooltip="RailorGame/src/Level/Tile.java">
+<persistable path="/RailorGame/src/Level/Tile.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.systemExternalEditor" name="tiles.png" tooltip="RailorGame/src/Art/tiles.png">
+<persistable path="/RailorGame/src/Art/tiles.png"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Screen.java" tooltip="RailorGame/src/Level/Screen.java">
+<persistable path="/RailorGame/src/Level/Screen.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.systemExternalEditor" name="entities.png" tooltip="RailorGame/src/Art/entities.png">
+<persistable path="/RailorGame/src/Art/entities.png"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkClient.java" tooltip="RailorGame/src/Networking/NetworkClient.java">
+<persistable path="/RailorGame/src/Networking/NetworkClient.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Entity.java" tooltip="RailorGame/src/Entity/Entity.java">
+<persistable path="/RailorGame/src/Entity/Entity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RailorComponent.java" tooltip="RailorGame/src/Level/RailorComponent.java">
+<persistable path="/RailorGame/src/Level/RailorComponent.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TestScreen.java" tooltip="RailorGame/src/mainGame/TestScreen.java">
+<persistable path="/RailorGame/src/mainGame/TestScreen.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SimpleWindowedGame.java" tooltip="RailorGame/src/mainGame/SimpleWindowedGame.java">
+<persistable path="/RailorGame/src/mainGame/SimpleWindowedGame.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameCanvas.java" tooltip="RailorGame/src/mainGame/GameCanvas.java">
 <persistable path="/RailorGame/src/mainGame/GameCanvas.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Art.java" tooltip="RailorGame/src/Art/Art.java">
 <persistable path="/RailorGame/src/Art/Art.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Bitmap.java" tooltip="RailorGame/src/Art/Bitmap.java">
-<persistable path="/RailorGame/src/Art/Bitmap.java"/>
 </file>
 </mruList>
 </workbench>

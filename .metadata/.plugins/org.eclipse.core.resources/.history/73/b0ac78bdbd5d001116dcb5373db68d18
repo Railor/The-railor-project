@@ -1,0 +1,25 @@
+package Art;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.*;
+
+import javax.imageio.ImageIO;
+
+public class Bitmap {
+    public int w, h;
+    public int maxW;
+    public int maxY;
+    public BufferedImage bi;
+    public Bitmap(BufferedImage bi, int w, int h){
+    	this.bi=bi;
+    	this.w = w;
+    	this.h=h;
+    }
+    public getSprite(){
+    	
+    }
+    
+    
+    
+}

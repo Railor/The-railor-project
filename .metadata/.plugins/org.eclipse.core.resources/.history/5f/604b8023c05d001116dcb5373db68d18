@@ -1,0 +1,19 @@
+package Art;
+
+import java.awt.image.BufferedImage;
+
+public class BitmapTile extends Bitmap {
+	public boolean isPassable = true;
+	public Bitmap(BufferedImage bi, int w, int h){
+    	this.bi=bi;
+    	this.w = w;
+    	this.h=h;
+    	maxW= bi.getWidth()/w;
+    	maxH = bi.getHeight()/h;
+    }
+    public BufferedImage getSprite(int wc, int hc){
+    	if(wc < maxW && hc < maxH)
+    	return bi.getSubimage(w*wc, h*hc, w, h);
+    	return bi;
+    }
+}
