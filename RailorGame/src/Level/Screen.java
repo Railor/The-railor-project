@@ -61,7 +61,8 @@ public class Screen {
 			offsetY=0;
 		for(int x = offsetX;x<l.width;x++){
 			for(int y = offsetY;y<l.height;y++){
-				g.drawImage(rc.tiles[map[x][y].tile],x*tileSize-screenX,y*tileSize-screenY,null);
+				//g.drawImage(rc.tiles[map[x][y].tile],x*tileSize-screenX,y*tileSize-screenY,null);
+				g.drawImage(map[x][y].tile,x*tileSize-screenX,y*tileSize-screenY,null);
 			}
 		}
 	}

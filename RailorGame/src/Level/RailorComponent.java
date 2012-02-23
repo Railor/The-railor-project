@@ -155,34 +155,7 @@ public class RailorComponent extends Canvas implements Runnable {
 			if(client!=null){
 				//System.out.println(clientID);
 				client.addMessage(new Location(-1,myPlayer.getX(),myPlayer.getY()));
-				/*
-				for (Key k : myPlayer.keys.keys) {
-					if (k.getJustChanged()) {
-						client.addMessage(k);
-						k.setJustChanged(false);
-					}
-				}
-				*/
-				
 			}
-				// System.out.println("ID="+level.players.get(0).getId()+", X="
-				// + level.players.get(0).getX() + ", Y=" +
-				// level.players.get(0).getY());
-				//for (Entity e : getEntitiesInRange(GAME_WIDTH,
-					//	level.players.get(0))) {
-					//server.sendMessage(new Location(e.getId(), e.getX(), e
-						//	.getY()));
-
-				//}
-				//addText(Long.toString(level.gameTick));
-				//addText("meow");
-				// server.sendMessage(level.players.get(0).keys.key_left);
-				// server.sendMessage(level.players.get(0).keys.key_up);
-				// server.sendMessage(level.players.get(0).keys.key_right);
-			
-			
-			
-			//TurnSynchronizer.synchedRandom.setSeed(TurnSynchronizer.synchedSeed+level.gameTick);
 			if(isServer){
 				server.endTick();
 			}
@@ -192,9 +165,9 @@ public class RailorComponent extends Canvas implements Runnable {
 			}
 			
 			
+		}
 			
-			
-		}else{
+		else{
 			if (!isServer) {
 				if (client != null) {
 					//String str = "CLIENT: Tick: " +  " Number:" + TurnSynchronizer.synchedRandom.nextInt(20);
@@ -205,7 +178,9 @@ public class RailorComponent extends Canvas implements Runnable {
 			}
 			
 		}
+		
 	}
+
 
 	
 

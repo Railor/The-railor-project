@@ -65,10 +65,11 @@ public class NetworkClient {
 		client.addListener(new Listener() {
 			
 			public void received(Connection connection, Object object) {
-				
+				//System.out.println("asdsad");
 				if (object instanceof NetworkCommands) {
 					NetworkCommands ncs = (NetworkCommands) object;
 					lastServerTick = ncs.getGameTick();
+					
 					aCom.add(ncs);
 				}
 				if (object instanceof Keys) {
@@ -104,6 +105,7 @@ public class NetworkClient {
 	public NetworkCommands getCurrentTickCommands(long x){
 		for(NetworkCommands c : (ArrayList<NetworkCommands>)aCom.clone()){
 			//if(c.getGameTick()<=rc.level.gameTick){
+			//System.out.println("asdsad");
 				return c;
 			//}
 		}
@@ -134,14 +136,19 @@ public class NetworkClient {
 		return false;
 	}
 	public void performActions(Object object) {
+		//System.out.println("asdsad");
+	//	client=null;
 		if (object instanceof Location) {
 			
 			Location l = (Location)object;
+			//System.out.println(l.getID() + "asdsad");
 			//System.out.println(l.getID());
 			//if(clientID == 1){
 				//System.out.println("inside location");
 			//}
+			
 			if(l.getID()<=0){
+				
 				l.setID(l.getID()*-1);
 				Player p = rc.level.getPlayerById(l.getID());
 				//if(p!= null && p != rc.myPlayer){

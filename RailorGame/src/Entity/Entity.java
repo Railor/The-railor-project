@@ -90,4 +90,5 @@ public class Entity {
 	public int getHeight(){
 		return height;
 	}	
+	
 }

@@ -23,8 +23,7 @@ public class Level {
 
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				levelMap[x][y] = new Tile(
-						TurnSynchronizer.synchedRandom.nextInt(8));
+				levelMap[x][y] = new Tile(Art.Art.TILE_GRASS);
 			}
 		}
 		for (int x = 0; x < 20; x++) {
@@ -231,6 +230,7 @@ public class Level {
 						entities.get(x).collision(entities.get(y));
 						entities.get(y).collision(entities.get(x));
 						if(p1 != null || p2 != null){
+							//System.out.println("Collision bitches");
 							if(p1==null)
 								rc.server.broadcastEntityUpdate(t);
 							if(p2==null)
