@@ -10,10 +10,12 @@ import Networking.TurnSynchronizer;
 public class Entity {
 	protected int xpos = 0;
 	protected int ypos = 0;
+	protected int lastx;
+	protected int lasty;
 	protected int fx = 25;
 	protected int fy = 25;
-	protected int width = 50;
-	protected int height = 50;
+	protected int width = 45;
+	protected int height = 45;
 	protected int radius = width;
 	private boolean removeMe = false;
 	public boolean collided = false;
@@ -22,6 +24,7 @@ public class Entity {
 	public int currentFrame = 0;
 	public int frameSpeed = 6;
 	public int dir = 0;
+	public boolean dirType = false;
 	Bitmap sprite;
 	
 	public Entity(int x, int y){
@@ -47,13 +50,14 @@ public class Entity {
 		
 	}
 	public void tick(){
+		collided= false;
 		currentFrame++;
 		if(currentFrame/frameSpeed>=sprite.maxW )
 			currentFrame=0;
+		lastx = xpos;
+		lasty= ypos;
 		
-		collided= false;
-		fx+=TurnSynchronizer.synchedRandom.nextInt(15)-7;
-		fy+=TurnSynchronizer.synchedRandom.nextInt(15)-7;
+
 	}
 	public boolean getRemoveMe(){
 		return removeMe;

@@ -2,28 +2,20 @@ package Entity;
 
 import java.awt.image.BufferedImage;
 
-import Art.Bitmap;
-import Level.Keys;
-import Level.Location;
-import Level.RailorComponent.KeyHandler;
-import Level.RailorComponent.MouseHandler;
-import Level.Screen;
+import Networking.TurnSynchronizer;
 
-public class Player extends Entity{
-	public Keys keys = new Keys();
-	//public Screen screen;
-	public int clientID = 0;
-	public Player(Bitmap b,int x, int y){
-		super(x, y);
-		type=1;
-		dirType=true;
+public class TestEntity extends Entity{
+	public TestEntity(int x, int y){
+		super(x,y);
+		xpos = x;
+		ypos = y;
 	}
 	public void tick(){
 		super.tick();
-		keyUpdate();
-		
+		fx+=TurnSynchronizer.synchedRandom.nextInt(15)-7;
+		fy+=TurnSynchronizer.synchedRandom.nextInt(15)-7;
 	}
-public BufferedImage getSprite(){
+	public BufferedImage getSprite(){
 		int dx = xpos - lastx,dy = ypos - lasty ;
 		if(dx < 0){//IF WE ARE MOVING LEFT ON X
 			if(dy < 0){//IF WE ARE MOVING UP ON Y
@@ -55,28 +47,5 @@ public BufferedImage getSprite(){
 		//System.out.println(dir + "lastx: " + lastx + "xpos: " + xpos);
 		return sprite.getSprite(currentFrame / frameSpeed, (dir >= sprite.maxH ? 0 : dir));
 	}
-	public void keyUpdate(){
-		if(keys.isKeyDown(Keys.KEY_LEFT)){
-			fx = xpos-5;
-		}
-		if(keys.isKeyDown(Keys.KEY_RIGHT)){
-			fx = xpos+5;
-		}
-		if(keys.isKeyDown(Keys.KEY_UP)){
-			fy = ypos-5;
-		}
-		if(keys.isKeyDown(Keys.KEY_DOWN)){
-			fy = ypos+5;
-		}
-	}
-	public int getClientId(){
-		return clientID;
-	}
-	public Location getPlayerLocation(){
-		return new Location(clientID,xpos,ypos);
-		
-	}
-	
-	
-	
+
 }

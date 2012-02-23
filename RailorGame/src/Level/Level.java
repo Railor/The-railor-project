@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import Entity.Entity;
 import Entity.Player;
+import Entity.TestEntity;
 import Networking.TurnSynchronizer;
 
 public class Level {
@@ -28,7 +29,7 @@ public class Level {
 		}
 		for (int x = 0; x < 20; x++) {
 
-			createEntity(new Entity(
+			createEntity(new TestEntity(
 					TurnSynchronizer.synchedRandom.nextInt(width
 							* RailorComponent.TILE_SIZE - 255),
 					TurnSynchronizer.synchedRandom.nextInt(height
