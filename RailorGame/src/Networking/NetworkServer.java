@@ -5,10 +5,10 @@ import Entity.Player;
 import Level.Key;
 import Level.Keys;
 import Level.Location;
-import Level.RailorComponent;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import mainGame.ProgramManager;
 
 
 import com.esotericsoftware.kryo.Kryo;
@@ -20,10 +20,10 @@ import com.esotericsoftware.kryonet.Server;
 public class NetworkServer {
 	Server server;
 	Kryo kryo;
-	RailorComponent rc;
+	ProgramManager pm;
 	ArrayList<NetworkCommands> networkCommands = new ArrayList<NetworkCommands>();
-	public NetworkServer(RailorComponent rc) {
-		this.rc = rc;
+	public NetworkServer(ProgramManager programManager) {
+		this.pm = programManager;
 		createServer();
 
 	}
@@ -51,7 +51,7 @@ public class NetworkServer {
 
 	public void broadcastPlayerUpdate(int id){
 		for (Connection c : server.getConnections()) {
-			for(Player p : rc.level.players){
+			for(Player p : pm.gameManager.level.players){
 				Location l = p.getPlayerLocation();
 				l.setID(p.getClientId() *-1);
 				if(p.getClientId()==id){
@@ -62,7 +62,7 @@ public class NetworkServer {
 	}
 	public void broadcastPlayersUpdate(boolean all){
 		for (Connection c : server.getConnections()) {
-			for(Player p : rc.level.players){
+			for(Player p : pm.gameManager.level.players){
 				Location l = p.getPlayerLocation();
 				l.setID(p.getClientId() *-1);
 				if(p.getClientId()==c.getID()){
@@ -83,7 +83,7 @@ public class NetworkServer {
 				return nc;
 			}
 		}
-		NetworkCommands ncs = new NetworkCommands(rc.level.gameTick,id);
+		NetworkCommands ncs = new NetworkCommands(pm.gameManager.level.gameTick,id);
 		networkCommands.add(ncs);
 		return ncs;
 	}
@@ -112,14 +112,15 @@ public class NetworkServer {
 	}
 	public void startGame() {
 		int x = 1;
-		//TurnSynchronizer.synchedSeed = TurnSynchronizer.unsynchedRandom.nextLong();
+		TurnSynchronizer.synchedSeed = TurnSynchronizer.unsynchedRandom.nextLong();
+		TurnSynchronizer.synchedRandom.setSeed(TurnSynchronizer.synchedSeed);
 		for (Connection c : server.getConnections()) {
 			c.sendTCP(new StartGamePacket(TurnSynchronizer.synchedSeed, c
 					.getID()));
 			//System.out.println(c.getID() + ": Client Id");
 			x++;
 		}
-		rc.startGame(-1);
+		pm.gameManager.startLevel(-1);
 
 	}
 	public void startTick(){
@@ -127,7 +128,7 @@ public class NetworkServer {
 	}
 	public void endTick(){
 		//System.out.println("endtick");
-		if(rc.started){
+		if(pm.gameManager.gameRunning){
 		broadcastPlayersUpdate(false);
 	
 		sendNetworkCommands();
@@ -156,6 +157,7 @@ public class NetworkServer {
 		kryo.register(NetworkCommands.class);
 		kryo.register(NetworkCommand.class);
 		kryo.register(ArrayList.class);
+		kryo.register(ClientInformation.class);
 		server.start();
 
 		try {
@@ -193,7 +195,7 @@ public class NetworkServer {
 	public void performActions(Object object, int clientID) {
 		if (object instanceof Key) {
 			Key k = (Key) object;
-			Player p = rc.level.getPlayerById(clientID);
+			Player p = pm.gameManager.level.getPlayerById(clientID);
 			//System.out.println("Im a key?");
 			if (k.getIsDown()) {
 				p.keys.keyPressed(k.getKeyCode());
@@ -206,7 +208,7 @@ public class NetworkServer {
 		}
 		if (object instanceof Location) {
 			Location l = (Location)object;
-			Player p = rc.level.getPlayerById(clientID);
+			Player p = pm.gameManager.level.getPlayerById(clientID);
 			if(p!= null){
 				p.setLocation(l);
 			}

@@ -3,6 +3,8 @@ package Level;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import mainGame.GameManager;
+
 import Entity.Entity;
 import Entity.Player;
 import Entity.TestEntity;
@@ -13,14 +15,14 @@ public class Level {
 	private Tile[][] levelMap;
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Player> players = new ArrayList<Player>();
-	RailorComponent rc;
+	GameManager gm;
 	int currentEntityId = 0;
 	public long gameTick = 0;
 
-	public Level(int w, int h, RailorComponent rca) {
+	public Level(int w, int h, GameManager gameManager) {
 		width = w;
 		height = h;
-		rc = rca;
+		gm = gameManager;
 		levelMap = new Tile[w][h];
 
 		for (int x = 0; x < w; x++) {
@@ -28,14 +30,15 @@ public class Level {
 				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
 			}
 		}
-		for (int x = 0; x < 20; x++) {
-
-			createEntity(new TestEntity(
-					TurnSynchronizer.synchedRandom.nextInt(width
-							* RailorComponent.TILE_SIZE - 255),
-					TurnSynchronizer.synchedRandom.nextInt(height
-							* RailorComponent.TILE_SIZE - 50)));
-
+		for (int x = 0; x < 100; x++) {
+			int test = TurnSynchronizer.synchedRandom.nextInt(width
+					* GameManager.GAME_TILE_SIZE - 255);
+			int test2 = TurnSynchronizer.synchedRandom.nextInt(height
+					* GameManager.GAME_TILE_SIZE - 50);
+			if(gm.pm.client != null)
+			System.out.println(test + "|" + test2 + "Client id" + gm.pm.client.clientId);
+			createEntity(new TestEntity(test,test2));
+				
 		}
 
 	}
@@ -109,8 +112,8 @@ public class Level {
 	}
 
 	public Tile getContainingBlock(int x, int y) {
-		return levelMap[x / RailorComponent.TILE_SIZE][y
-				/ RailorComponent.TILE_SIZE];
+		return levelMap[x / GameManager.GAME_TILE_SIZE][y
+				/ GameManager.GAME_TILE_SIZE];
 
 	}
 
@@ -127,21 +130,21 @@ public class Level {
 				e.tick();
 				if (e.getFX() < 0
 						|| e.getFX() + e.getWidth() > width
-								* RailorComponent.TILE_SIZE - 2) {
+								* GameManager.GAME_TILE_SIZE - 2) {
 					e.setFX(e.getX());
 				}
 				if (e.getFY() < 0
 						|| e.getFY() + e.getHeight() > height
-								* RailorComponent.TILE_SIZE - 2) {
+								* GameManager.GAME_TILE_SIZE - 2) {
 					e.setFY(e.getY());
 				}
 				try {
 					int bWidth = 0;
 					int bHeight = 0;
 					if (e.getX() > 0)
-						bWidth = e.getX() / RailorComponent.TILE_SIZE;
+						bWidth = e.getX() / GameManager.GAME_TILE_SIZE;
 					if (e.getY() > 0)
-						bHeight = e.getY() / RailorComponent.TILE_SIZE;
+						bHeight = e.getY() / GameManager.GAME_TILE_SIZE;
 					// System.out.println("XA: "+ xa + "| YA" + ya);
 					for (int xa = bWidth - 3; xa < bWidth + 3; xa++) {
 
@@ -150,10 +153,10 @@ public class Level {
 							Rectangle er = new Rectangle(e.getFX(), e.getY(),
 									e.getWidth(), e.getHeight());
 							Rectangle tr = new Rectangle(xa
-									* RailorComponent.TILE_SIZE, ya
-									* RailorComponent.TILE_SIZE,
-									RailorComponent.TILE_SIZE,
-									RailorComponent.TILE_SIZE);
+									* GameManager.GAME_TILE_SIZE, ya
+									* GameManager.GAME_TILE_SIZE,
+									GameManager.GAME_TILE_SIZE,
+									GameManager.GAME_TILE_SIZE);
 							if (er.intersects(tr)) {
 								if (collideTile(levelMap[xa][ya], e)) {
 									collidetop = true;
@@ -166,10 +169,10 @@ public class Level {
 							}
 							er = new Rectangle(e.getX(), e.getFY(),
 									e.getWidth(), e.getHeight());
-							tr = new Rectangle(xa * RailorComponent.TILE_SIZE,
-									ya * RailorComponent.TILE_SIZE,
-									RailorComponent.TILE_SIZE,
-									RailorComponent.TILE_SIZE);
+							tr = new Rectangle(xa * GameManager.GAME_TILE_SIZE,
+									ya * GameManager.GAME_TILE_SIZE,
+									GameManager.GAME_TILE_SIZE,
+									GameManager.GAME_TILE_SIZE);
 							if (er.intersects(tr)) {
 								if (collideTile(levelMap[xa][ya], e)) {
 									if (!collidetop) {
@@ -205,7 +208,7 @@ public class Level {
 					if (collideEntity(entities.get(x), entities.get(y))) {
 						
 						
-						if(rc.isServer && rc.server!= null){
+						if(gm.pm.isServer && gm.pm.server!= null){
 							
 						Entity t = entities.get(x);
 						Entity et = entities.get(y);
@@ -213,21 +216,21 @@ public class Level {
 						Player p2 = null;
 						if(t instanceof Player){
 							p1 = (Player)t;
-							rc.server.broadcastPlayerUpdate(p1.getClientId());
+							gm.pm.server.broadcastPlayerUpdate(p1.getClientId());
 							
 						}
 						if(et instanceof Player){
 							p2 = (Player)et;
-							rc.server.broadcastPlayerUpdate(p2.getClientId());
+							gm.pm.server.broadcastPlayerUpdate(p2.getClientId());
 						}
 						entities.get(x).collision(entities.get(y));
 						entities.get(y).collision(entities.get(x));
 						if(p1 != null || p2 != null){
 							//System.out.println("Collision bitches");
 							if(p1==null)
-								rc.server.broadcastEntityUpdate(t);
+								gm.pm.server.broadcastEntityUpdate(t);
 							if(p2==null)
-								rc.server.broadcastEntityUpdate(et);
+								gm.pm.server.broadcastEntityUpdate(et);
 						}
 						}else{
 							entities.get(x).collision(entities.get(y));

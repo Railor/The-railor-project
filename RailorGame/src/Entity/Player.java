@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import Art.Bitmap;
 import Level.Keys;
 import Level.Location;
-import Level.RailorComponent.KeyHandler;
-import Level.RailorComponent.MouseHandler;
 import Level.Screen;
 
 public class Player extends Entity {

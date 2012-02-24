@@ -3,14 +3,14 @@ package Networking;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import mainGame.ProgramManager;
+
 
 import Entity.Entity;
 import Entity.Player;
 import Level.Key;
 import Level.Keys;
 import Level.Location;
-import Level.RailorComponent;
-
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -20,7 +20,7 @@ import com.esotericsoftware.kryonet.Server;
 public class NetworkClient {
 	public Client client;
 	Kryo kryo;
-	RailorComponent rc;
+	ProgramManager pm;
 	public int clientId = -5;
 	public String connectIP = "127.0.0.1";
 	ArrayList<NetworkCommands> aCom = new ArrayList<NetworkCommands>();
@@ -28,10 +28,9 @@ public class NetworkClient {
 	public boolean performedTick = false;
 	public long lastServerTick = 0;
 
-	public NetworkClient(RailorComponent rc) {
-		this.rc = rc;
+	public NetworkClient(ProgramManager programManager) {
+		this.pm = programManager;
 		startClient();
-
 	}
 
 	public void sendMessage(Object object) {
@@ -50,6 +49,7 @@ public class NetworkClient {
 		kryo.register(NetworkCommands.class);
 		kryo.register(NetworkCommand.class);
 		kryo.register(ArrayList.class);
+		kryo.register(ClientInformation.class);
 		client.start();
 		try {
 			// client.connect(5000, "127.0.0.1", 54555, 54777);
@@ -63,7 +63,7 @@ public class NetworkClient {
 		// SomeRequest requeste = new SomeRequest();
 		// requeste.text = "Here is the request!";
 		client.sendTCP(new StartGamePacket());
-
+		
 		client.addListener(new Listener() {
 
 			public void received(Connection connection, Object object) {
@@ -71,9 +71,9 @@ public class NetworkClient {
 				if(object instanceof String){
 					System.out.println(object.toString());
 					if(object.toString().compareTo("pause")==0){
-						rc.started=false;
+						pm.gameManager.gamePaused=false;
 					}else if(object.toString().compareTo("unpause")==0){
-						rc.started=true;
+						pm.gameManager.gamePaused=true;
 					}
 				}
 				if (object instanceof NetworkCommands) {
@@ -102,10 +102,11 @@ public class NetworkClient {
 
 					StartGamePacket sg = (StartGamePacket) object;
 					clientId = sg.getClientId();
+					System.out.println(sg.getGameSeed());
 					TurnSynchronizer.synchedRandom.setSeed(sg.getGameSeed());
 					System.out.println(TurnSynchronizer.synchedSeed
 							+ "CLIENT SYNCHED SEED RECEIEVED" + clientId);
-					rc.startGame(clientId);
+					pm.gameManager.startLevel(clientId);
 				}
 
 			}
@@ -141,7 +142,7 @@ public class NetworkClient {
 	}
 
 	public boolean performTick() {
-		NetworkCommands nc = getCurrentTickCommands(rc.level.gameTick);
+		NetworkCommands nc = getCurrentTickCommands(pm.gameManager.level.gameTick);
 		if (nc != null) {
 			performGameTick(nc);
 			aCom.remove(nc);
@@ -159,10 +160,10 @@ public class NetworkClient {
 			if (l.getID() <= 0) {
 
 				l.setID(l.getID() * -1);
-				Player p = rc.level.getPlayerById(l.getID());
+				Player p = pm.gameManager.level.getPlayerById(l.getID());
 				p.setLocation(l);
 			} else {
-				Entity et = rc.level.getEntityById(l.getID());
+				Entity et = pm.gameManager.level.getEntityById(l.getID());
 				if (et != null)
 					et.setLocation(l);
 				else
@@ -176,10 +177,11 @@ public class NetworkClient {
 
 	public void startTick() {
 		//performTick();
-		if(rc.started)
-		while (performTick()) {
-
-	}
+		if(pm.gameManager.gameRunning)
+			performTick();
+		//while (performTick()) {
+		//}
+	
 
 	}
 
@@ -189,7 +191,7 @@ public class NetworkClient {
 
 	public void addMessage(Object o) {
 		if (networkCommands == null) {
-			networkCommands = new NetworkCommands(rc.level.gameTick, clientId);
+			networkCommands = new NetworkCommands(pm.gameManager.level.gameTick, clientId);
 		}
 		networkCommands.addCommand(o);
 		// TODO Auto-generated method stub
@@ -201,6 +203,9 @@ public class NetworkClient {
 			client.sendTCP(networkCommands);
 		networkCommands = null;
 
+	}
+	public void shutDown(){
+		client.close();
 	}
 
 }

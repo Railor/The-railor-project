@@ -20,7 +20,7 @@ public class Entity {
 	protected int radius = width;
 	private boolean removeMe = false;
 	public boolean collided = false;
-	public int moveSpeed = 5;
+	public int moveSpeed = 15;
 	int id;
 	public int type = 0;
 	public int currentFrame = 0;
