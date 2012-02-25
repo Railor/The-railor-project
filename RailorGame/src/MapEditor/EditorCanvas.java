@@ -1,5 +1,7 @@
 package MapEditor;
 
-public class EditorCanvas {
+import java.awt.Canvas;
+
+public class EditorCanvas extends Canvas{
 
 }

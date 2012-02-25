@@ -18,6 +18,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import mainGame.ProgramManager.GameState;
+
 import Entity.Player;
 import Level.Keys;
 import Level.Level;
@@ -32,7 +34,7 @@ public class GameManager {
 	public ProgramManager pm;
 	public Level level;
 	public Screen screen;
-	public boolean gameRunning = false;
+	//public boolean gameRunning = false;
 	public boolean gamePaused = false;
 	GraphicsEnvironment ge;
 	GraphicsDevice gd;
@@ -51,7 +53,7 @@ public class GameManager {
 	public void starterup(JFrame app){
 		pm.app.remove(pm.menuManager.mainMenuPanel);
 		canvas = new GameCanvas();
-		canvas.setIgnoreRepaint(true);
+		//canvas.setIgnoreRepaint(true);
 		canvas.setSize(ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 		canvas.setFocusable(false);
 		app.add(canvas);
@@ -65,20 +67,24 @@ public class GameManager {
 	}
 	public void startLevel(int playerID){
 		starterup(myFrame);
-		level = new Level(50,50,this);
+		level = new Level(25,25,this);
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 		Player p = new Player(0, 0);
 		level.createPlayer(p);
 		p.clientID=1;
+		p.setId(1);
 		p = new Player(200, 0);
 		level.createPlayer(p);
 		p.clientID=2;
+		p.setId(2);
 		p = new Player(0, 200);
 		level.createPlayer(p);
 		p.clientID=3;
+		p.setId(3);
 		p = new Player(200, 200);
 		level.createPlayer(p);
 		p.clientID=4;
+		p.setId(4);
 		
 		for (Player k : level.players) {
 			
@@ -87,7 +93,7 @@ public class GameManager {
 				screen.owner=p;
 			}
 		}
-		gameRunning=true;
+		pm.STATE=GameState.GameScreen;
 	}
 	public GameManager(JFrame j, ProgramManager program) {
 		this.pm = program;
@@ -96,7 +102,7 @@ public class GameManager {
 		
 	}
 	public void draw(Graphics g) {
-		if (gameRunning) {
+		if (pm.STATE==GameState.GameScreen) {
 			screen.drawLevelMap(level, g);
 			if(myPlayer!= null){
 				screen.owner=myPlayer;
@@ -108,15 +114,7 @@ public class GameManager {
 	}
 	public void drawCanvas(){
 		try {
-			lastTime = curTime;
-			curTime = System.currentTimeMillis();
-			totalTime += curTime - lastTime;
-			if (totalTime > 1000) {
-				totalTime -= 1000;
-				fps = frames;
-				frames = 0;
-			}
-			++frames;
+			
 			g2d = bi.createGraphics();
 			g2d.setColor(background);
 			g2d.fillRect(0, 0, 639, 479);
@@ -132,16 +130,7 @@ public class GameManager {
 							: ("ClientID: " + pm.client.clientId), 20,
 							20);
 				}
-				if (pm.client != null) {
-					g2d.drawString(
-							"GameTick: "
-									+ Long.toString(level.gameTick)
-									+ "Last Server Tick: "
-									+ pm.client.lastServerTick
-									+ "Diff:"
-									+ (pm.client.lastServerTick - level.gameTick),
-							20, 60);
-				}
+				
 			}
 			g2d.drawString(String.format("FPS: %s", fps), 20, 40);
 
@@ -150,37 +139,29 @@ public class GameManager {
 			// **********************************************************************************************************************************************
 			graphics = buffer.getDrawGraphics();
 			graphics.drawImage(bi, 0, 0, null);
-			if (!buffer.contentsLost())
-				buffer.show();
-			try {
-				if (curTime - lastTime > 16) {
-					Thread.sleep(16);
-				} else {
-					Thread.sleep(curTime - lastTime);
-					// System.out.println(curTime - lastTime);
-				}
-
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}} finally {
-				if (graphics != null)
-					graphics.dispose();
-				if (g2d != null)
-					g2d.dispose();
+		}catch(Exception e){
+				
 			}
+			
 	}
 	public void run(){
+		lastTime = curTime;
+		curTime = System.currentTimeMillis();
+		totalTime += curTime - lastTime;
+		if (totalTime > 1000) {
+			totalTime -= 1000;
+			fps = frames;
+			frames = 0;
+		}
+		++frames;
 		drawCanvas();
-		if (gameRunning) {
-			level.gameTick++;
+		if (pm.STATE==GameState.GameScreen) {
 			if(pm.isServer && pm.server != null){
 				pm.server.startTick();
 			}
 			if(!pm.isServer && pm.client!= null){
 				pm.client.startTick();
 				if(pm.client.performedTick=false){
-					level.gameTick--;
 					return;
 				}
 			}
@@ -189,7 +170,7 @@ public class GameManager {
 			if (screen != null)
 				screen.tick();
 			if(pm.client!=null && myPlayer != null){
-				pm.client.addMessage(new Location(-1,myPlayer.getX(),myPlayer.getY()));
+				pm.client.addMessage(new Location(-1,(int)myPlayer.getX(),(int)myPlayer.getY()));
 			}
 			if(pm.isServer){
 				pm.server.endTick();
@@ -198,7 +179,7 @@ public class GameManager {
 				pm.client.endTick();
 			}
 		}
-		if(!gameRunning){
+		if(pm.STATE!=GameState.GameScreen){
 			if(pm.isServer && pm.server != null){
 				pm.server.startTick();
 			}
@@ -213,14 +194,33 @@ public class GameManager {
 				pm.client.endTick();
 			}
 	}
+		if (!buffer.contentsLost())
+			buffer.show();
+		try {
+			if (curTime - lastTime >= 15) {
+				Thread.sleep(15);
+			} else {
+				Thread.sleep(curTime - lastTime);
+				// System.out.println(curTime - lastTime);
+			}
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (graphics != null)
+				graphics.dispose();
+			if (g2d != null)
+				g2d.dispose();
+		}
 	}
 	public void keyPressed(KeyEvent e){
-		if (gameRunning && myPlayer!= null) {
+		if (pm.STATE==GameState.GameScreen && myPlayer!= null) {
 			myPlayer.keys.keyPressed(e);
 		}
 	}
 	public void keyReleased(KeyEvent e) {
-		if (gameRunning && myPlayer != null) {
+		if (pm.STATE==GameState.GameScreen && myPlayer != null) {
 			myPlayer.keys.keyReleased(e);
 		}
 		if (e.getKeyCode() == Keys.KEY_Q) {
@@ -230,7 +230,7 @@ public class GameManager {
 		if (e.getKeyCode() == Keys.KEY_Z) {
 			System.out.println("Pressed z");
 			pm.server.startGame();
-			gameRunning=true;
+			pm.STATE=GameState.GameScreen;
 		}
 		if (e.getKeyCode() == Keys.KEY_E) {
 			System.out.println("Pressed e");

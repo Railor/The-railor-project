@@ -13,6 +13,7 @@ import Entity.Player;
 import Level.Keys;
 import Level.Level;
 import Level.Screen;
+import MapEditor.EditorManager;
 import Networking.NetworkClient;
 import Networking.NetworkServer;
 
@@ -21,12 +22,17 @@ public class ProgramManager implements KeyListener, MouseListener{
 	public GameManager gameManager;
 	public static int SCREEN_WIDTH = 800;
 	public static int SCREEN_HEIGHT = 600;
-	public boolean isMenu = true;
+	public String connectip = "127.0.0.1";
+	public enum GameState {
+		MenuScreen,GameScreen,EditorScreen
+	}
+	public static GameState STATE = GameState.MenuScreen;
 	public NetworkServer server;
 	public NetworkClient client;
 	public boolean isServer = false;
 	public boolean isClient = false;
 	public MenuManager menuManager;
+	public EditorManager editorManager;
 	public ProgramManager(){
 		app.setMaximumSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 		//app.setMaximizedBounds(new Rectangle(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -35,15 +41,24 @@ public class ProgramManager implements KeyListener, MouseListener{
 		app.setIgnoreRepaint(true);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		app.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-		app.setVisible(true);
+		
 		menuManager = new MenuManager(app,this);
 		gameManager = new GameManager(app,this);
+		editorManager = new EditorManager(app,this);
 		app.addKeyListener(this);
 		app.addMouseListener(this);
+		app.setVisible(true);
 	}
 	public void run(){
-		if(gameManager.gameRunning)
-		gameManager.run();
+		if(STATE == GameState.GameScreen)
+			gameManager.run();
+		else if(STATE == GameState.EditorScreen){
+			editorManager.run();
+		}
+		else{
+			
+		}
+		app.repaint();
 	}
 	public void startGame() {
 		
@@ -82,15 +97,21 @@ public class ProgramManager implements KeyListener, MouseListener{
 	}
 	public void keyPressed(KeyEvent e) {
 		//if(gameManager.gameRunning)
+		if(STATE == GameState.GameScreen)
 			gameManager.keyPressed(e);
-			if(isMenu)
+		else if(STATE == GameState.MenuScreen)
 				menuManager.keyPressed(e);
+		else if(STATE == GameState.EditorScreen)
+			editorManager.keyPressed(e);
+			
 	}
 	public void keyReleased(KeyEvent e) {
-	//	if(gameManager.gameRunning)
+		if(STATE == GameState.GameScreen)
 			gameManager.keyReleased(e);
-			if(isMenu)
+		else if(STATE == GameState.MenuScreen)
 				menuManager.keyReleased(e);
+		else if(STATE == GameState.EditorScreen)
+			editorManager.keyReleased(e);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {

@@ -11,7 +11,7 @@ public class Bitmap {
     public int maxW;
     public int maxH;
     public BufferedImage bi;
-    
+    public boolean dirType8 = true;
     public Bitmap(BufferedImage bi, int w, int h){
     	this.bi=bi;
     	this.w = w;

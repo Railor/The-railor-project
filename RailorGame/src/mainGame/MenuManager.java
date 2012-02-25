@@ -7,15 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import mainGame.ProgramManager.GameState;
+
 import Level.Keys;
 
 public class MenuManager {
 	ProgramManager pm;
-	JPanel mainMenuPanel = new JPanel();
+	public JPanel mainMenuPanel = new JPanel();
 	JButton hostGame;
 	JButton connectGame;
 	JButton startGame;
 	JTextField ipaddressField;
+	JButton mapEditor;
 	public MenuManager(JFrame frame, ProgramManager pm) {
 		this.pm = pm;
 		mainMenuPanel.setLayout(null);
@@ -40,11 +43,18 @@ public class MenuManager {
 		startGame.setActionCommand("start");
 		startGame.addActionListener(new ActionListener());
 		mainMenuPanel.add(startGame);
-		//ipaddressField = new JTextField();
-		//ipaddressField.setSize(200, 20);
-		//ipaddressField.setLocation(30, 280);
-		//ipaddressField.setText("poo");
-		//mainMenuPanel.add(ipaddressField);
+		mapEditor = new JButton();
+		mapEditor.setSize(200, 20);
+		mapEditor.setLocation(30, 260);
+		mapEditor.setText("Map Editor");
+		mapEditor.setActionCommand("mapeditor");
+		mapEditor.addActionListener(new ActionListener());
+		mainMenuPanel.add(mapEditor);
+		ipaddressField = new JTextField();
+		ipaddressField.setSize(200, 20);
+		ipaddressField.setLocation(30, 280);
+		ipaddressField.setText("127.0.0.1");
+		mainMenuPanel.add(ipaddressField);
 		
 		frame.add(mainMenuPanel);
 		
@@ -84,9 +94,12 @@ public class MenuManager {
 			if (e.getActionCommand().compareTo("join") == 0) {
 				
 				if(pm.client == null){
+				pm.connectip=ipaddressField.getText();
 				pm.newClient();
+				
 				if(pm.client.client.isConnected()){
 					connectGame.setText("Disconnect");
+					
 					pm.isClient = true;
 				}else{
 					connectGame.setText("Connect to Server");
@@ -105,9 +118,14 @@ public class MenuManager {
 			if (e.getActionCommand().compareTo("start") == 0) {
 				if(pm.isServer){
 					pm.server.startGame();
-					pm.gameManager.gameRunning=true;
+					pm.STATE=GameState.GameScreen;
 				}
 					
+			}
+			if (e.getActionCommand().compareTo("mapeditor") == 0) {
+				pm.editorManager.startEditor();
+				pm.STATE=GameState.EditorScreen;
+				
 			}
 		}
 

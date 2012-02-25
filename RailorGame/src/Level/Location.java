@@ -1,7 +1,7 @@
 package Level;
 
 public class Location {
-int x,y,id;
+public int x,y,id;
 public Location(int id,int x, int y){
 	this.x = x;
 	this.y = y;

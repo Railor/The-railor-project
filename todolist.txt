@@ -1,0 +1,41 @@
+Important!
+Entity movement using 360* and if moving
+Server needs a way to tell client to create an entity of a certain type(way to identify what type a class is and create it)
+Server needs to tell client to create new entities, and give them an id,also direction and movement
+Server needs to update client Entity location, movement Direction and if object is moving
+Client needs to request an entity update(Server decides what to send based on what is near player)
+
+Not as important
+Entitiy Wander( Location update, Random direction, if moving)
+Server tell client to remove a object
+Server checks to see if clients move request is valid, otherwise resends their position(Will stop all players geting stuck)
+Fix client not seeing animation of other clients
+Loading/Saving levels from file
+Map editor working
+
+Thoughts
+Static Entities, part of the map(E.X a house, fence, cake)
+Player names
+Player colors, Tint bitmaps to their color?
+
+Far away
+Attacking
+Blocking
+
+Far Far Away
+Items
+Equipment
+Abiltiies
+Usable Items
+Player levels
+Atributes
+Skills
+Talents
+Monster Levels
+
+
+Far Far Far Away
+Cake
+
+
+

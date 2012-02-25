@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import mainGame.ProgramManager;
+import mainGame.ProgramManager.GameState;
 
 
 import Entity.Entity;
@@ -22,7 +23,6 @@ public class NetworkClient {
 	Kryo kryo;
 	ProgramManager pm;
 	public int clientId = -5;
-	public String connectIP = "127.0.0.1";
 	ArrayList<NetworkCommands> aCom = new ArrayList<NetworkCommands>();
 	NetworkCommands networkCommands;
 	public boolean performedTick = false;
@@ -36,7 +36,7 @@ public class NetworkClient {
 	public void sendMessage(Object object) {
 		client.sendTCP(object);
 	}
-
+	
 	public void startClient() {
 
 		client = new Client();
@@ -50,11 +50,13 @@ public class NetworkClient {
 		kryo.register(NetworkCommand.class);
 		kryo.register(ArrayList.class);
 		kryo.register(ClientInformation.class);
+		kryo.register(UpdateObjectList.class);
+		//kryo.register(Integer.class);
 		client.start();
 		try {
 			// client.connect(5000, "127.0.0.1", 54555, 54777);
-
-			client.connect(54555, connectIP, 54555, 54777);
+			
+			client.connect(54555, pm.connectip, 54555, 54555);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
@@ -78,8 +80,6 @@ public class NetworkClient {
 				}
 				if (object instanceof NetworkCommands) {
 					NetworkCommands ncs = (NetworkCommands) object;
-					lastServerTick = ncs.getGameTick();
-
 					aCom.add(ncs);
 				}
 				if (object instanceof Keys) {
@@ -114,7 +114,7 @@ public class NetworkClient {
 	}
 
 	@SuppressWarnings("unchecked")
-	public NetworkCommands getCurrentTickCommands(long x) {
+	public NetworkCommands getNetworkCommand() {
 		for (NetworkCommands c : (ArrayList<NetworkCommands>) aCom.clone()) {
 			// if(c.getGameTick()<=rc.level.gameTick){
 			// System.out.println("asdsad");
@@ -142,7 +142,7 @@ public class NetworkClient {
 	}
 
 	public boolean performTick() {
-		NetworkCommands nc = getCurrentTickCommands(pm.gameManager.level.gameTick);
+		NetworkCommands nc = getNetworkCommand();
 		if (nc != null) {
 			performGameTick(nc);
 			aCom.remove(nc);
@@ -157,18 +157,12 @@ public class NetworkClient {
 		if (object instanceof Location) {
 
 			Location l = (Location) object;
-			if (l.getID() <= 0) {
-
-				l.setID(l.getID() * -1);
-				Player p = pm.gameManager.level.getPlayerById(l.getID());
-				p.setLocation(l);
-			} else {
 				Entity et = pm.gameManager.level.getEntityById(l.getID());
 				if (et != null)
 					et.setLocation(l);
 				else
 					System.out.println("Cant find entity by id" + l.getID());
-			}
+			
 
 		}
 		
@@ -177,10 +171,11 @@ public class NetworkClient {
 
 	public void startTick() {
 		//performTick();
-		if(pm.gameManager.gameRunning)
+		if(pm.STATE==GameState.GameScreen){
+			//while (performTick()) {
+			//}
 			performTick();
-		//while (performTick()) {
-		//}
+		}
 	
 
 	}
@@ -191,7 +186,7 @@ public class NetworkClient {
 
 	public void addMessage(Object o) {
 		if (networkCommands == null) {
-			networkCommands = new NetworkCommands(pm.gameManager.level.gameTick, clientId);
+			networkCommands = new NetworkCommands(clientId);
 		}
 		networkCommands.addCommand(o);
 		// TODO Auto-generated method stub

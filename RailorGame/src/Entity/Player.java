@@ -16,8 +16,9 @@ public class Player extends Entity {
 	public Player(int x, int y) {
 		super(x, y);
 		type = 1;
-		dirType = true;
+		dirType8 = true;
 		sprite = Art.Art.BITMAP_ENTITY_PLAYER;
+		moveSpeed = 10;
 	}
 
 	public void tick() {
@@ -41,7 +42,7 @@ public class Player extends Entity {
 	}
 
 	public BufferedImage getSprite() {
-		int dx = xpos - lastx, dy = ypos - lasty;
+		double dx = xpos - lastx, dy = ypos - lasty;
 		if (dx < 0) {// IF WE ARE MOVING LEFT ON X
 			if (dy < 0) {// IF WE ARE MOVING UP ON Y
 				dir = 3;
@@ -68,11 +69,9 @@ public class Player extends Entity {
 				dir = 7;
 			}
 		}
-		// if(xpos > 200)
-		// System.out.println(dir + "lastx: " + lastx + "xpos: " + xpos);
 		return sprite.getSprite(currentFrame / frameSpeed,
 				(dir >= sprite.maxH ? 0 : dir));
-	}
+		}
 
 	public void keyUpdate() {
 		if (keys.isKeyDown(Keys.KEY_LEFT)) {
@@ -94,7 +93,7 @@ public class Player extends Entity {
 	}
 
 	public Location getPlayerLocation() {
-		return new Location(clientID, xpos, ypos);
+		return new Location(clientID, (int)xpos, (int)ypos);
 
 	}
 

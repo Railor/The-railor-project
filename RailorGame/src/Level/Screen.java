@@ -7,6 +7,7 @@ import mainGame.GameManager;
 import mainGame.ProgramManager;
 
 import Entity.Entity;
+import MapEditor.EditorManager;
 
 public class Screen {
 	public int w,h,tileSize;
@@ -14,6 +15,7 @@ public class Screen {
 	public int screenX = 0,screenY = 0;
 	public Entity owner = null;
 	GameManager gm;
+	EditorManager em;
 	public Screen(GameManager gameManager, int w, int h){
 		
 		this.gm = gameManager;
@@ -22,6 +24,15 @@ public class Screen {
 		screenX =0;
 		boundaryX = gameManager.level.width*GameManager.GAME_TILE_SIZE - ProgramManager.SCREEN_WIDTH;
 		boundaryY = gameManager.level.height*GameManager.GAME_TILE_SIZE - ProgramManager.SCREEN_HEIGHT;
+	}
+public Screen(EditorManager editorManager, int w, int h){
+		
+		this.em = editorManager;
+		this.w = w;
+		this.h = h;
+		screenX =0;
+		boundaryX = em.level.width*GameManager.GAME_TILE_SIZE - ProgramManager.SCREEN_WIDTH;
+		boundaryY = em.level.height*GameManager.GAME_TILE_SIZE - ProgramManager.SCREEN_HEIGHT;
 	}
 	public void tick(){
 		if(owner!= null){
@@ -38,14 +49,14 @@ public class Screen {
 			screenY+=y;
 	}
 	public void setScreenOnEntity(Entity x){
-		screenX = x.getX() - w/2;
+		screenX = (int)x.getX() - w/2;
 		if(screenX>boundaryX){
 			screenX=boundaryX;
 			
 		}else if(screenX<0){
 			screenX=0;
 		}
-		screenY = x.getY()- h/2;
+		screenY = (int)x.getY()- h/2;
 		if(screenY>boundaryY){
 			screenY=boundaryY;
 			
@@ -71,7 +82,7 @@ public class Screen {
 	}
 	public void drawEntities(ArrayList<Entity> entities, Graphics g) {
 		for(Entity e : entities){
-			g.drawImage(e.getSprite(),e.getX() - screenX,e.getY() - screenY,e.getWidth(),e.getHeight(),null);
+			g.drawImage(e.getSprite(),(int)e.getX() - screenX,(int)e.getY() - screenY,e.getWidth(),e.getHeight(),null);
 		}
 		
 	}

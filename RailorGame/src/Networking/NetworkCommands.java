@@ -4,13 +4,11 @@ import java.util.ArrayList;
 
 public class NetworkCommands {
 	ArrayList<NetworkCommand> commands = new ArrayList<NetworkCommand>();
-	Long gameTick;
 	int clientID;
 	public NetworkCommands(){
 		
 	}
-	public NetworkCommands(Long g, int clientID){
-		gameTick = g;
+	public NetworkCommands(int clientID){
 		this.clientID=clientID;
 	}
 	public void addCommand(Object o){
@@ -28,9 +26,6 @@ public class NetworkCommands {
 		if(commands.size()>0)
 		return commands.get(0);
 		return null;
-	}
-	public Long getGameTick(){
-		return gameTick;
 	}
 	public boolean hasCommands(){
 	return	commands.size()>0;

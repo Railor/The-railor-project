@@ -3,11 +3,16 @@ package Art;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+import mainGame.Main;
+import mainGame.ProgramManager;
 
 public class Art {
-	public static String artLocation = "src/Art/";
+	public static String artLocation = "/res/";
 	public static String artFileType = ".png";
 	
 	////////////////////////////////////////////////////////////
@@ -27,11 +32,12 @@ public class Art {
 	////////////////////////////////////////////////////////////
 	private static BufferedImage setupImage(String string) {
 		try {
-            BufferedImage bi = ImageIO.read(new File(artLocation + string + artFileType));
+            BufferedImage bi = ImageIO.read(Art.class.getResource(artLocation + string + artFileType));
             return bi;
 		
 		} catch (IOException e) {
             e.printStackTrace();
+            System.exit(0);
         }
 		
 		System.out.println("cant find image? WHAT IS THIS!!!!!!!!!!");
@@ -39,15 +45,16 @@ public class Art {
     }
 	private static BufferedImage setupImage(String string,int x, int y, int w, int h) {
 		try {
-            BufferedImage bi = ImageIO.read(new File(artLocation + string + artFileType));
+			//ImageIcon flagIcon = new ImageIcon(getClass().getResource("images/flag2.gif"));
+			BufferedImage bi = ImageIO.read(Art.class.getResource(artLocation + string + artFileType));
+            //BufferedImage bi = ImageIO.read(new File(artLocation + string + artFileType));
+			
             bi = bi.getSubimage(x,y,w,h);
             return bi;
 		
 		} catch (IOException e) {
             e.printStackTrace();
         }
-		
-		
 		return null;
     }
     private static Bitmap[][] cut(String string, int w, int h, int bx, int by) {

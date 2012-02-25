@@ -7,8 +7,10 @@ import mainGame.GameManager;
 
 import Entity.Entity;
 import Entity.Player;
-import Entity.TestEntity;
+import MapEditor.EditorManager;
+import Mob.Mob;
 import Networking.TurnSynchronizer;
+import Networking.UpdateObjectList;
 
 public class Level {
 	public int width, height;
@@ -16,9 +18,8 @@ public class Level {
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Player> players = new ArrayList<Player>();
 	GameManager gm;
-	int currentEntityId = 0;
-	public long gameTick = 0;
-
+	EditorManager em;
+	int currentEntityId = 100;
 	public Level(int w, int h, GameManager gameManager) {
 		width = w;
 		height = h;
@@ -30,19 +31,22 @@ public class Level {
 				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
 			}
 		}
-		for (int x = 0; x < 100; x++) {
-			int test = TurnSynchronizer.synchedRandom.nextInt(width
-					* GameManager.GAME_TILE_SIZE - 255);
-			int test2 = TurnSynchronizer.synchedRandom.nextInt(height
-					* GameManager.GAME_TILE_SIZE - 50);
-			if(gm.pm.client != null)
-			System.out.println(test + "|" + test2 + "Client id" + gm.pm.client.clientId);
-			createEntity(new TestEntity(test,test2));
-				
+		for (int x = 0; x < 1; x++) {
+				createEntity(new Mob(450,450));
 		}
-
 	}
+	public Level(int w, int h, EditorManager editorManager) {
+		width = w;
+		height = h;
+		em=editorManager;
+		levelMap = new Tile[w][h];
 
+		for (int x = 0; x < w; x++) {
+			for (int y = 0; y < h; y++) {
+				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
+			}
+		}
+	}
 	public void tick() {
 
 		entitiesTick();
@@ -110,7 +114,12 @@ public class Level {
 		e.setId(currentEntityId);
 		entities.add(p);
 	}
-
+	public int getAngleBetweenEntities(Entity e1, Entity e2){
+		int nx = 500;
+		int ny = 500;
+		int angle = (int) (Math.atan2(e2.getY() - e1.getY(), e2.getX() - e1.getX()) * 180 / Math.PI);
+		return angle;
+	}
 	public Tile getContainingBlock(int x, int y) {
 		return levelMap[x / GameManager.GAME_TILE_SIZE][y
 				/ GameManager.GAME_TILE_SIZE];
@@ -142,15 +151,15 @@ public class Level {
 					int bWidth = 0;
 					int bHeight = 0;
 					if (e.getX() > 0)
-						bWidth = e.getX() / GameManager.GAME_TILE_SIZE;
+						bWidth = (int)e.getX() / GameManager.GAME_TILE_SIZE;
 					if (e.getY() > 0)
-						bHeight = e.getY() / GameManager.GAME_TILE_SIZE;
+						bHeight = (int)e.getY() / GameManager.GAME_TILE_SIZE;
 					// System.out.println("XA: "+ xa + "| YA" + ya);
 					for (int xa = bWidth - 3; xa < bWidth + 3; xa++) {
 
 						for (int ya = bHeight - 3; ya < bHeight + 3; ya++) {
 							boolean collidetop = false;
-							Rectangle er = new Rectangle(e.getFX(), e.getY(),
+							Rectangle er = new Rectangle((int) e.getFX(),(int) e.getY(),
 									e.getWidth(), e.getHeight());
 							Rectangle tr = new Rectangle(xa
 									* GameManager.GAME_TILE_SIZE, ya
@@ -167,7 +176,7 @@ public class Level {
 									}
 								}
 							}
-							er = new Rectangle(e.getX(), e.getFY(),
+							er = new Rectangle((int)e.getX(), (int) e.getFY(),
 									e.getWidth(), e.getHeight());
 							tr = new Rectangle(xa * GameManager.GAME_TILE_SIZE,
 									ya * GameManager.GAME_TILE_SIZE,
@@ -202,26 +211,24 @@ public class Level {
 		// Entity[] entities = (Entity[])getEntities().toArray().clone();
 
 		for (int x = 0; x < entities.size(); x++) {
-			Entity e1 = entities.get(x);
 			for (int y = entities.size() - 1; y > entities.size() / 2 - 1; y--) {
 				if (entities.get(x).getId() != entities.get(y).getId()) {
 					if (collideEntity(entities.get(x), entities.get(y))) {
 						
-						
-						if(gm.pm.isServer && gm.pm.server!= null){
-							
 						Entity t = entities.get(x);
 						Entity et = entities.get(y);
+						if(gm.pm.isServer && gm.pm.server!= null){
+							
+						
 						Player p1 = null;
 						Player p2 = null;
 						if(t instanceof Player){
 							p1 = (Player)t;
-							gm.pm.server.broadcastPlayerUpdate(p1.getClientId());
-							
+							gm.pm.server.broadcastPlayersUpdate(false);
 						}
 						if(et instanceof Player){
 							p2 = (Player)et;
-							gm.pm.server.broadcastPlayerUpdate(p2.getClientId());
+							gm.pm.server.broadcastPlayersUpdate(false);
 						}
 						entities.get(x).collision(entities.get(y));
 						entities.get(y).collision(entities.get(x));
@@ -233,6 +240,13 @@ public class Level {
 								gm.pm.server.broadcastEntityUpdate(et);
 						}
 						}else{
+							if(gm.pm.isClient){
+								//UpdateObjectList ob = new UpdateObjectList();
+								//ob.addObject(t.getId());
+								//ob.addObject(et.getId());
+								//gm.pm.client.addMessage(t.getId());
+								//gm.pm.client.addMessage(et.getId());
+							}
 							entities.get(x).collision(entities.get(y));
 							entities.get(y).collision(entities.get(x));
 						}

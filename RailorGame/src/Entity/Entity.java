@@ -9,36 +9,36 @@ import Level.Location;
 import Networking.TurnSynchronizer;
 
 public class Entity {
-	public int xpos = 0;
-	public int ypos = 0;
-	public int lastx;
-	public int lasty;
-	protected int fx = 25;
-	protected int fy = 25;
+	public double xpos = 0.0;
+	public double ypos = 0.0;
+	public double lastx;
+	public double lasty;
+	protected double fx = 25;
+	protected double fy = 25;
 	protected int width = 45;
 	protected int height = 45;
 	protected int radius = width;
 	private boolean removeMe = false;
 	public boolean collided = false;
-	public int moveSpeed = 15;
+	public int MaxMoveSpeed = 5;
+	public int moveSpeed = 3;
 	int id;
 	public int type = 0;
 	public int currentFrame = 0;
 	public int frameSpeed = 6;
 	public int dir = 0;
-	public boolean dirType = false;
-	
-	Bitmap sprite;
+	public boolean dirType8 = false;
+	boolean isMoving = false;
+	protected Bitmap sprite;
 	
 	public Entity(int x, int y){
 		xpos = x;
 		ypos = y;
-		fx = xpos;
-		fy = ypos;
-		sprite = Art.Art.BITMAP_ENTITY_BALL;
+		//fx = xpos;
+		//fy = ypos;
+		
 	}
 	public BufferedImage getSprite(){
-		
 		return sprite.getSprite(currentFrame / frameSpeed, (dir >= sprite.maxH ? 0 : dir));
 	}
 	
@@ -54,8 +54,7 @@ public class Entity {
 		
 	}
 	public Location getLocation(){
-		return new Location(id,xpos,ypos);
-		
+		return new Location(id,(int)xpos,(int)ypos);
 	}
 	public void tick(){
 		collided= false;
@@ -81,36 +80,36 @@ public class Entity {
 	public int getRadius(){
 		return radius;
 	}
-	public int getX() {
+	public double getX() {
 		// TODO Auto-generated method stub
 		return xpos;
 	}
-	public int getY() {
+	public double getY() {
 		// TODO Auto-generated method stub
 		return ypos;
 	}
 	public int getId(){
 		return id;
 	}
-	public void setFX(int x){
+	public void setFX(double x){
 		fx = x;
 	}
-	public void setFY(int y){
+	public void setFY(double y){
 		fy = y;
 	}
-	public void setX(int x){
+	public void setX(double x){
 		 this.xpos = x;
 	}
 	public void setId(int x){
 		id = x;
 	}
-	public void setY(int y){
+	public void setY(double y){
 		 this.ypos = y;
 	}
-	public int getFX(){
+	public double getFX(){
 		return fx;
 	}
-	public int getFY(){
+	public double getFY(){
 		return fy;
 	}
 	public int getWidth(){
