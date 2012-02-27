@@ -44,6 +44,7 @@ public class Screen {
 
 	public void tick() {
 		if (owner != null) {
+			
 			setScreenOnEntity(owner);
 			// System.out.println("ownerx: " + owner.getX() + "| screenx: " +
 			// screenX + "| screeny: " + screenY);
@@ -53,11 +54,19 @@ public class Screen {
 	}
 
 	public void addScreenX(int x) {
+		boundaryX = em.level.width * GameManager.GAME_TILE_SIZE
+				- ProgramManager.SCREEN_WIDTH;
+		boundaryY = em.level.height * GameManager.GAME_TILE_SIZE
+				- ProgramManager.SCREEN_HEIGHT;
 		if (screenX + x < boundaryX && screenX + x > 0)
 			screenX += x;
 	}
 
 	public void addScreenY(int y) {
+		boundaryX = em.level.width * GameManager.GAME_TILE_SIZE
+				- ProgramManager.SCREEN_WIDTH;
+		boundaryY = em.level.height * GameManager.GAME_TILE_SIZE
+				- ProgramManager.SCREEN_HEIGHT;
 		if (screenY + y < boundaryY && screenY + y > -4)
 			screenY += y;
 	}
@@ -89,10 +98,10 @@ public class Screen {
 			offsetX = 0;
 		if (offsetY < 0)
 			offsetY = 0;
-		for (int x = offsetX; x < offsetX + w / GameManager.GAME_TILE_SIZE + 3 && x < l.width; x++) {
+		for (int x = offsetX; x < offsetX + w / GameManager.GAME_TILE_SIZE + 2 && x < l.width; x++) {
 			for (int y = offsetY; y < offsetY + h / GameManager.GAME_TILE_SIZE + 3 && y < l.height; y++) {
 				// g.drawImage(rc.tiles[map[x][y].tile],x*tileSize-screenX,y*tileSize-screenY,null);
-				g.drawImage(map[x][y].tile, x * tileSize - screenX, y
+				g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id).getSprite(), x * tileSize - screenX, y
 						* tileSize - screenY, null);
 			}
 		}

@@ -41,6 +41,7 @@ public class ProgramManager implements KeyListener, MouseListener{
 		menuManager = new MenuManager(app,this);
 		gameManager = new GameManager(app,this);
 		editorManager = new EditorManager(app,this);
+		
 		app.addKeyListener(this);
 		app.addMouseListener(this);
 		app.setVisible(true);
@@ -69,22 +70,31 @@ public class ProgramManager implements KeyListener, MouseListener{
 	}
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("MP");
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("MP");
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("MP");
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
+		System.out.println("MP");
 		// TODO Auto-generated method stub
-		System.out.println("keypressed e");
+		if(STATE == GameState.GameScreen){
+			//gameManager.keyReleased(e);
+		}
+		else if(STATE == GameState.MenuScreen){
+			//	menuManager.keyReleased(e);
+		}
+		else if(STATE == GameState.EditorScreen){
+			editorManager.mousePressed(e);
+	}
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {

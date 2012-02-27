@@ -1,11 +1,9 @@
 Important!
-Add and remove Mobs as they go in and out of range of player, MAYBE? THOUGHTS?
-Server contains list of what client sees?
-Client just removes things that leave?
-Server sends update of all objects, client deletes ones that are not in list?
 
+all others check if need to update and update them
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+Server scans for duplicate commands and removes them
+Client removes objects that leave its range
 
 
 Not as important
@@ -35,6 +33,4 @@ Monster Levels
 
 Far Far Far Away
 Cake
-
-
 

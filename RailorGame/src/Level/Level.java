@@ -1,6 +1,9 @@
 package Level;
 
 import java.awt.Rectangle;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import mainGame.GameManager;
 
@@ -11,7 +14,7 @@ import Mob.Mob;
 
 public class Level {
 	public int width, height;
-	private Tile[][] levelMap;
+	public Tile[][] levelMap;
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Player> players = new ArrayList<Player>();
 	GameManager gm;
@@ -33,7 +36,13 @@ public class Level {
 
 		}
 	}
-
+	public Level(String mapFile, GameManager gameManager) {
+		LevelProperties l = loadMap(mapFile);
+		width = l.width;
+		height = l.height;
+		gm = gameManager;
+		levelMap = l.tiles;
+	}
 	public Level(int w, int h, EditorManager editorManager) {
 		width = w;
 		height = h;
@@ -42,14 +51,96 @@ public class Level {
 
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
+				
+				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
 			}
 		}
 	}
 
+	public LevelProperties loadMap(String t) {
+		LevelProperties lv = new LevelProperties();
+		lv.name = t;
+		System.out.println("READING FILE");
+		FileReader input;
+		String map = "hearsay";
+		String map1 = null;
+		try {
+			input = new FileReader(t);
+			BufferedReader bufRead = new BufferedReader(input);
+			
+			int count = 0;
+			map = bufRead.readLine();
+			map1+=map;
+			count++;
+			while (map != null) {
+				map = bufRead.readLine();
+				map1+=map;
+				count++;
+			}
+			//System.out.println("BITCH" + map1);
+			bufRead.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Failed to read file");
+			e.printStackTrace();
+		}
+		int width = 0,height = 0;
+		String delims = "[,]";
+		//System.out.println(map1);
+		String[] tokens = map1.split(delims);
+		int breaker = 0;
+		for(int x = 0; x<tokens.length;x++){
+			//System.out.println(tokens[x]);
+			if(tokens[x].compareTo("SIZEX")==0){
+				x++;
+				width = Integer.parseInt(tokens[x]);
+				//System.out.println(tokens[x] + "SIZEX");
+			}else if(tokens[x].compareTo("SIZEY")==0){
+				x++;
+				height = Integer.parseInt(tokens[x]);
+				breaker = x+1;
+				//break;
+			}
+		}
+		lv.tiles = new Tile[width][height];
+		int ix = 0,iy = 0;
+		//System.out.println("WIDTH: " + width + "| HEIGHT: " + height);
+		lv.width = width;
+		lv.height = height;
+		for(int x = breaker; x<tokens.length;x++){
+			//System.out.println(ix + "IX - IY" + iy);
+			//System.out.println(tokens[x]);
+			if(ix < width && iy < height){
+			lv.tiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
+				//lv.tiles[ix][iy] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
+			}
+			if(ix<(width-1)){
+				ix++;
+			}else{
+				iy++;
+				ix=0;
+			}
+		}
+		return lv;
+	}
+
+	public Level(String mapFile, EditorManager editorManager) {
+		LevelProperties l = loadMap(mapFile);
+		width = l.width;
+		height = l.height;
+		em = editorManager;
+		levelMap = l.tiles;
+		
+		//for (int x = 0; x < width; x++) {
+			//for (int y = 0; y < height; y++) {
+				//levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
+			//}
+		//}
+	}
+
 	public void tick() {
 		if (gm.pm.isClient) {
-			//System.out.println(gm.myPlayer);
+			// System.out.println(gm.myPlayer);
 			// System.out.println(entities.size() +
 			// "FIRST CLIENT ENTITY SIZE LIST");
 			if (gm.myPlayer != null) {
@@ -61,9 +152,9 @@ public class Level {
 			}
 			if (gm.screen.owner == null) {
 				for (Player k : gm.level.players) {
-					
+
 					if (k.clientID == gm.pm.client.clientId) {
-						
+
 						gm.myPlayer = k;
 						gm.screen.owner = k;
 					}
@@ -141,7 +232,7 @@ public class Level {
 		players.add(p);
 		Entity e = (Entity) p;
 		// currentEntityId++;
-		 e.setId(p.clientID);
+		e.setId(p.clientID);
 		entities.add(p);
 	}
 
@@ -303,7 +394,7 @@ public class Level {
 	}
 
 	public boolean collideTile(Tile t, Entity e) {
-		if (t.isPassable)
+		if (Art.Art.getTileFromTileNumber(t.id).isPassable)
 			return false;
 		return true;
 	}

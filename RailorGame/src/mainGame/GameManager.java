@@ -71,7 +71,8 @@ public class GameManager {
 	}
 	public void startLevel(int playerID){
 		starterup(myFrame);
-		level = new Level(200,200,this);
+		level = new Level("level.txt",this);
+		
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 
 		ProgramManager.STATE=GameState.GameScreen;

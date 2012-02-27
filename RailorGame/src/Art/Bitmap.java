@@ -8,6 +8,7 @@ public class Bitmap {
     public int maxH;
     public BufferedImage bi;
     public boolean dirType8 = true;
+    public int id = 0;
     public Bitmap(BufferedImage bi, int w, int h){
     	this.bi=bi;
     	this.w = w;
