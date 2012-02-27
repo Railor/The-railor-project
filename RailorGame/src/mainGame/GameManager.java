@@ -1,20 +1,18 @@
 package mainGame;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -25,9 +23,14 @@ import Level.Keys;
 import Level.Level;
 import Level.Location;
 import Level.Screen;
+import Mob.Mob;
 
 public class GameManager {
 	// Create game window...
+	int TICKS_PER_SECOND = 30;
+    double SKIP_TICKS = 1000 / TICKS_PER_SECOND;
+    int MAX_FRAMESKIP = 5;
+    int currentGameTick = 0;
 	public GameCanvas canvas;
 	public static int GAME_TILE_SIZE = 64;
 	BufferStrategy buffer;
@@ -50,6 +53,7 @@ public class GameManager {
 	long lastTime = curTime;
 	public Player myPlayer;
 	public JFrame myFrame;
+	public int gameSpeed = 11;
 	public void starterup(JFrame app){
 		pm.app.remove(pm.menuManager.mainMenuPanel);
 		canvas = new GameCanvas();
@@ -67,33 +71,10 @@ public class GameManager {
 	}
 	public void startLevel(int playerID){
 		starterup(myFrame);
-		level = new Level(25,25,this);
+		level = new Level(200,200,this);
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
-		Player p = new Player(0, 0);
-		level.createPlayer(p);
-		p.clientID=1;
-		p.setId(1);
-		p = new Player(200, 0);
-		level.createPlayer(p);
-		p.clientID=2;
-		p.setId(2);
-		p = new Player(0, 200);
-		level.createPlayer(p);
-		p.clientID=3;
-		p.setId(3);
-		p = new Player(200, 200);
-		level.createPlayer(p);
-		p.clientID=4;
-		p.setId(4);
-		
-		for (Player k : level.players) {
-			
-			if(k.clientID==playerID){
-				myPlayer=k;
-				screen.owner=p;
-			}
-		}
-		pm.STATE=GameState.GameScreen;
+
+		ProgramManager.STATE=GameState.GameScreen;
 	}
 	public GameManager(JFrame j, ProgramManager program) {
 		this.pm = program;
@@ -101,18 +82,19 @@ public class GameManager {
 		//starterup(j);
 		
 	}
-	public void draw(Graphics g) {
-		if (pm.STATE==GameState.GameScreen) {
-			screen.drawLevelMap(level, g);
+	public void draw(Graphics g,double d ) {
+		if (ProgramManager.STATE==GameState.GameScreen) {
+			screen.drawLevelMap(level,g);
 			if(myPlayer!= null){
 				screen.owner=myPlayer;
-				screen.drawEntities(level.getEntities(), g);
+				screen.drawEntities(pm.gameManager.level.getEntitiesInRange(ProgramManager.SCREEN_WIDTH + 100,screen.owner), g,d);
+				
 			}else{
-				screen.drawEntities(level.getEntities(), g);
+				screen.drawEntities(level.getEntities(), g,d);
 			}
 			}
 	}
-	public void drawCanvas(){
+	public void drawCanvas(double d){
 		try {
 			
 			g2d = bi.createGraphics();
@@ -121,7 +103,7 @@ public class GameManager {
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************
-			draw(g2d);
+			draw(g2d,d);
 			g2d.setFont(new Font("Courier New", Font.PLAIN, 12));
 			g2d.setColor(Color.RED);
 			if (level != null) {
@@ -129,6 +111,7 @@ public class GameManager {
 					g2d.drawString(pm.isServer ? "Server"
 							: ("ClientID: " + pm.client.clientId), 20,
 							20);
+					g2d.drawString("Entities Loaded: " + level.getEntities().size(), 20,60);
 				}
 				
 			}
@@ -145,17 +128,32 @@ public class GameManager {
 			
 	}
 	public void run(){
-		lastTime = curTime;
-		curTime = System.currentTimeMillis();
-		totalTime += curTime - lastTime;
-		if (totalTime > 1000) {
-			totalTime -= 1000;
-			fps = frames;
-			frames = 0;
-		}
-		++frames;
-		drawCanvas();
-		if (pm.STATE==GameState.GameScreen) {
+		
+	    long next_game_tick = System.currentTimeMillis();
+	    int loops;
+	    double interpolation;
+
+	    //bool game_is_running = true;
+	    while( ProgramManager.STATE==GameState.GameScreen) {
+
+	        loops = 0;
+	        while( System.currentTimeMillis() > next_game_tick && loops < MAX_FRAMESKIP) {
+	            updateGame();
+
+	            next_game_tick += SKIP_TICKS;
+	            loops++;
+	        }
+
+	        interpolation = ( System.currentTimeMillis() + SKIP_TICKS - next_game_tick ) / ( SKIP_TICKS );
+	        displayGame( interpolation);
+	       // System.out.println(interpolation);
+	    }
+		
+	
+	}
+	public void updateGame(){
+		 
+		if (ProgramManager.STATE==GameState.GameScreen) {
 			if(pm.isServer && pm.server != null){
 				pm.server.startTick();
 			}
@@ -179,7 +177,79 @@ public class GameManager {
 				pm.client.endTick();
 			}
 		}
-		if(pm.STATE!=GameState.GameScreen){
+		if(ProgramManager.STATE!=GameState.GameScreen){
+			if(pm.isServer && pm.server != null){
+				pm.server.startTick();
+			}
+			if(!pm.isServer && pm.client!= null){
+				pm.client.startTick();
+		}
+			if(pm.isServer && pm.server != null){
+				pm.server.endTick();
+			}
+			
+			if(!pm.isServer && pm.client!= null){
+				pm.client.endTick();
+			}
+	}
+	}
+	public void displayGame(double d){
+		lastTime = curTime;
+		curTime = System.currentTimeMillis();
+		totalTime += curTime - lastTime;
+		if (totalTime > 1000) {
+			totalTime -= 1000;
+			fps = frames;
+			frames = 0;
+		}
+		++frames;
+		drawCanvas(d);
+		if (!buffer.contentsLost())
+			buffer.show();
+		
+			if (curTime - lastTime >= gameSpeed) {
+				//Thread.sleep(gameSpeed);
+				//Thread.sleep(0);
+			} else {
+				//Thread.sleep(gameSpeed - (curTime - lastTime));
+				//Thread.sleep(0);
+				// System.out.println(curTime - lastTime);
+			}
+
+			if (graphics != null)
+				graphics.dispose();
+			if (g2d != null)
+				g2d.dispose();
+		
+	}
+	public void runqwe(){
+		
+		displayGame(50);
+		if (ProgramManager.STATE==GameState.GameScreen) {
+			if(pm.isServer && pm.server != null){
+				pm.server.startTick();
+			}
+			if(!pm.isServer && pm.client!= null){
+				pm.client.startTick();
+				if(pm.client.performedTick=false){
+					return;
+				}
+			}
+			if (level != null)
+				level.tick();
+			if (screen != null)
+				screen.tick();
+			if(pm.client!=null && myPlayer != null){
+				pm.client.addMessage(new Location(-1,(int)myPlayer.getX(),(int)myPlayer.getY()));
+			}
+			if(pm.isServer){
+				pm.server.endTick();
+			}
+			if(!pm.isServer && pm.client!= null){
+				pm.client.endTick();
+			}
+		}
+		if(ProgramManager.STATE!=GameState.GameScreen){
 			if(pm.isServer && pm.server != null){
 				pm.server.startTick();
 			}
@@ -197,10 +267,12 @@ public class GameManager {
 		if (!buffer.contentsLost())
 			buffer.show();
 		try {
-			if (curTime - lastTime >= 15) {
-				Thread.sleep(15);
+			if (curTime - lastTime >= gameSpeed) {
+				//Thread.sleep(gameSpeed);
+				Thread.sleep(0);
 			} else {
-				Thread.sleep(curTime - lastTime);
+				//Thread.sleep(gameSpeed - (curTime - lastTime));
+				Thread.sleep(0);
 				// System.out.println(curTime - lastTime);
 			}
 
@@ -215,12 +287,12 @@ public class GameManager {
 		}
 	}
 	public void keyPressed(KeyEvent e){
-		if (pm.STATE==GameState.GameScreen && myPlayer!= null) {
+		if (ProgramManager.STATE==GameState.GameScreen && myPlayer!= null) {
 			myPlayer.keys.keyPressed(e);
 		}
 	}
 	public void keyReleased(KeyEvent e) {
-		if (pm.STATE==GameState.GameScreen && myPlayer != null) {
+		if (ProgramManager.STATE==GameState.GameScreen && myPlayer != null) {
 			myPlayer.keys.keyReleased(e);
 		}
 		if (e.getKeyCode() == Keys.KEY_Q) {
@@ -230,7 +302,7 @@ public class GameManager {
 		if (e.getKeyCode() == Keys.KEY_Z) {
 			System.out.println("Pressed z");
 			pm.server.startGame();
-			pm.STATE=GameState.GameScreen;
+			ProgramManager.STATE=GameState.GameScreen;
 		}
 		if (e.getKeyCode() == Keys.KEY_E) {
 			System.out.println("Pressed e");
@@ -240,6 +312,13 @@ public class GameManager {
 		if (e.getKeyCode() == Keys.KEY_B) {
 			System.out.println("Pressed b");
 			if(pm.isServer){
+				for (int x = 0; x < 20; x++) {
+					Random rand = new Random();
+					Mob p = new Mob(rand.nextInt(800),rand.nextInt(600));
+					level.createEntity(p);
+					//pm.server.createMob(p,1);
+					//pm.server.updateMob(p,1);
+				}
 			gamePaused=!gamePaused;
 			pm.server.pauseAll(!gamePaused);
 			}

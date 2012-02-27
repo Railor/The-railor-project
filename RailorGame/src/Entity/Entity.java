@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 
 import Art.Bitmap;
 import Level.Location;
-import Networking.TurnSynchronizer;
 
 public class Entity {
 	public double xpos = 0.0;
@@ -18,24 +17,28 @@ public class Entity {
 	protected int width = 45;
 	protected int height = 45;
 	protected int radius = width;
-	private boolean removeMe = false;
+	public boolean removeMe = false;
 	public boolean collided = false;
-	public int MaxMoveSpeed = 5;
+	public int MaxMoveSpeed = 500;
 	public int moveSpeed = 3;
-	int id;
+	protected int id;
 	public int type = 0;
 	public int currentFrame = 0;
 	public int frameSpeed = 6;
 	public int dir = 0;
 	public boolean dirType8 = false;
+	public boolean skipLastUpdate = false;
 	boolean isMoving = false;
 	protected Bitmap sprite;
-	
+	protected int dirAngle = 0;
+	public Entity(){
+		
+	}
 	public Entity(int x, int y){
 		xpos = x;
 		ypos = y;
-		//fx = xpos;
-		//fy = ypos;
+		fx = xpos;
+		fy = ypos;
 		
 	}
 	public BufferedImage getSprite(){
@@ -47,10 +50,12 @@ public class Entity {
 			//lastx = xpos;
 			//if(lasty != ypos)
 		//	lasty= ypos;
+		
 		this.xpos=l.getX();
 		this.ypos=l.getY();
 		this.fx=l.getX();
 		this.fy=l.getY();
+		
 		
 	}
 	public Location getLocation(){
@@ -62,9 +67,13 @@ public class Entity {
 		if(currentFrame/frameSpeed>=sprite.maxW )
 			currentFrame=0;
 		//if(lastx != xpos)
+		if(!skipLastUpdate){
 		lastx = xpos;
 		//if(lasty != ypos)
 		lasty= ypos;
+		}else{
+			skipLastUpdate=false;
+		}
 		
 
 	}
@@ -74,8 +83,15 @@ public class Entity {
 	public void collision(Entity e){
 		this.setFX(this.getX());
 		this.setFY(this.getY());
-		collided = true;
+		//collided = true;
+		//removeMe=true;
 		//System.out.println("I collided with an entity");
+	}
+	public int getDirAngle(){
+		return dirAngle;
+	}
+	public void setDirAngle(int angle){
+		dirAngle = angle;
 	}
 	public int getRadius(){
 		return radius;

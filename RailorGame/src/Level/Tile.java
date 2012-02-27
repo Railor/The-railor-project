@@ -2,7 +2,6 @@ package Level;
 
 import java.awt.image.BufferedImage;
 
-import Art.Bitmap;
 import Art.BitmapTile;
 
 public class Tile {

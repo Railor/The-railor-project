@@ -1,7 +1,6 @@
 package mainGame;
 
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -9,10 +8,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 
-import Entity.Player;
-import Level.Keys;
-import Level.Level;
-import Level.Screen;
 import MapEditor.EditorManager;
 import Networking.NetworkClient;
 import Networking.NetworkServer;
@@ -23,6 +18,7 @@ public class ProgramManager implements KeyListener, MouseListener{
 	public static int SCREEN_WIDTH = 800;
 	public static int SCREEN_HEIGHT = 600;
 	public String connectip = "127.0.0.1";
+	public int updateRange = 1100;
 	public enum GameState {
 		MenuScreen,GameScreen,EditorScreen
 	}

@@ -3,20 +3,28 @@ package Networking;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import packets.EntityRemovePacket;
+import packets.MobCreatePacket;
+import packets.MobUpdatePacket;
+import packets.PlayerCreatePacket;
+import packets.StartGamePacket;
+
 import mainGame.ProgramManager;
 import mainGame.ProgramManager.GameState;
 
 
 import Entity.Entity;
+import Entity.EntityClass;
 import Entity.Player;
 import Level.Key;
 import Level.Keys;
 import Level.Location;
+import Mob.Mob;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Server;
 
 public class NetworkClient {
 	public Client client;
@@ -38,8 +46,7 @@ public class NetworkClient {
 	}
 	
 	public void startClient() {
-
-		client = new Client();
+		client = new Client(16384, 4096);
 		kryo = client.getKryo();
 		kryo.register(Key.class);
 		kryo.register(Keys.class);
@@ -51,6 +58,11 @@ public class NetworkClient {
 		kryo.register(ArrayList.class);
 		kryo.register(ClientInformation.class);
 		kryo.register(UpdateObjectList.class);
+		kryo.register(MobUpdatePacket.class);
+		kryo.register(MobCreatePacket.class);
+		kryo.register(EntityClass.class);
+		kryo.register(EntityRemovePacket.class);
+		kryo.register(PlayerCreatePacket.class);
 		//kryo.register(Integer.class);
 		client.start();
 		try {
@@ -107,6 +119,17 @@ public class NetworkClient {
 					System.out.println(TurnSynchronizer.synchedSeed
 							+ "CLIENT SYNCHED SEED RECEIEVED" + clientId);
 					pm.gameManager.startLevel(clientId);
+				}
+				if(object instanceof PlayerCreatePacket){
+					PlayerCreatePacket c = (PlayerCreatePacket) object;
+					Player p = new Player(50,50,(c.id));
+					pm.gameManager.level.createPlayer(p);
+					//System.out.println("myplayer = p!");
+					if(clientId == c.id){
+						//System.out.println("myplayer = p!");
+						pm.gameManager.myPlayer = p;
+					}
+					//pm.gameManager.level.createPlayer(p);
 				}
 
 			}
@@ -165,16 +188,45 @@ public class NetworkClient {
 			
 
 		}
+		if(object instanceof MobCreatePacket){
+			MobCreatePacket p = (MobCreatePacket)object;
+			createMobByClass(p.type, p.id);
+			//System.out.println(p.id);
+		}
+		
+		if(object instanceof MobUpdatePacket){
+			
+			MobUpdatePacket p = (MobUpdatePacket)object;
+			Mob b = (Mob)pm.gameManager.level.getEntityById(p.mobId);
+			//System.out.println(p.mobId + ": Yo im updating");
+			if(b != null){
+				b.setLocation(p.location);
+				b.setDirAngle(p.dirAngle);
+				b.isMoving = p.isMoving;
+			}else{
+				System.out.println(p.mobId + ": MOB NOT FOUND, CLIENT SIDE UPDATE PACKET");
+			}
+		}
+		if(object instanceof EntityRemovePacket){
+			pm.gameManager.level.removeEntity(pm.gameManager.level.getEntityById(((EntityRemovePacket) object).entityId));
+		}
 		
 		
 	}
-
+	public void createMobByClass(EntityClass c, int id){
+		if(c == EntityClass.CLASS_MOB){
+			pm.gameManager.level.createMob(new Mob(id));
+		}
+		
+		
+		
+	}
 	public void startTick() {
 		//performTick();
-		if(pm.STATE==GameState.GameScreen){
-			//while (performTick()) {
-			//}
-			performTick();
+		if(ProgramManager.STATE==GameState.GameScreen){
+			while (performTick()) {
+			}
+			//performTick();
 		}
 	
 

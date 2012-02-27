@@ -1,7 +1,6 @@
 package MapEditor;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -13,12 +12,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-import mainGame.GameCanvas;
 import mainGame.ProgramManager;
-import mainGame.ProgramManager.GameState;
 import Level.Keys;
 import Level.Level;
-import Level.Location;
 import Level.Screen;
 
 public class EditorManager {

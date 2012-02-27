@@ -1,4 +1,4 @@
-package Networking;
+package packets;
 
 public class StartGamePacket {
 	private long gameSeed;

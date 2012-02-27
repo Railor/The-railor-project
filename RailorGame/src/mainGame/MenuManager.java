@@ -36,13 +36,6 @@ public class MenuManager {
 		connectGame.setActionCommand("join");
 		connectGame.addActionListener(new ActionListener());
 		mainMenuPanel.add(connectGame);
-		startGame = new JButton();
-		startGame.setSize(200, 20);
-		startGame.setLocation(30, 240);
-		startGame.setText("Start Game");
-		startGame.setActionCommand("start");
-		startGame.addActionListener(new ActionListener());
-		mainMenuPanel.add(startGame);
 		mapEditor = new JButton();
 		mapEditor.setSize(200, 20);
 		mapEditor.setLocation(30, 260);
@@ -83,7 +76,8 @@ public class MenuManager {
 				if (pm.server == null) {
 					hostGame.setText("Stop Server");
 					pm.newServer();
-					
+					pm.server.startGame();
+					ProgramManager.STATE=GameState.GameScreen;
 				} else {
 					hostGame.setText("Host");
 					pm.server.shutDown();
@@ -115,16 +109,9 @@ public class MenuManager {
 				}
 				
 			}
-			if (e.getActionCommand().compareTo("start") == 0) {
-				if(pm.isServer){
-					pm.server.startGame();
-					pm.STATE=GameState.GameScreen;
-				}
-					
-			}
 			if (e.getActionCommand().compareTo("mapeditor") == 0) {
 				pm.editorManager.startEditor();
-				pm.STATE=GameState.EditorScreen;
+				ProgramManager.STATE=GameState.EditorScreen;
 				
 			}
 		}

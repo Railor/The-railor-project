@@ -1,18 +1,12 @@
 package Art;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
-
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
-import mainGame.Main;
-import mainGame.ProgramManager;
 
 public class Art {
-	public static String artLocation = "/res/";
+	public static String artLocation = "/";///WORKS FOR EDITOR
+	//public static String artLocation = "/railorgame/res/"; /// WORKS FOR JAR FILE
 	public static String artFileType = ".png";
 	
 	////////////////////////////////////////////////////////////
@@ -20,6 +14,7 @@ public class Art {
 	////////////////////////////////////////////////////////////
 	public static Bitmap BITMAP_ENTITY_PLAYER = new Bitmap(setupImage("herr_von_speck_sheet_32"), 26, 32);
 	public static Bitmap BITMAP_ENTITY_BALL = new Bitmap(setupImage("entities"), 64, 64);
+	public static Bitmap BITMAP_ENTITY_GANGAR = new Bitmap(setupImage("gangar_58_53"), 58, 53);
 	////////////////////////////////////////////////////////////
 	//////////////////////////TILES/////////////////////////////
 	////////////////////////////////////////////////////////////
@@ -57,30 +52,4 @@ public class Art {
         }
 		return null;
     }
-    private static Bitmap[][] cut(String string, int w, int h, int bx, int by) {
-    	/*
-        try {
-            BufferedImage bi = ImageIO.read(MojamComponent.class.getResource(string));
-
-            int xTiles = (bi.getWidth() - bx) / w;
-            int yTiles = (bi.getHeight() - by) / h;
-
-            Bitmap[][] result = new Bitmap[xTiles][yTiles];
-
-            for (int x = 0; x < xTiles; x++) {
-                for (int y = 0; y < yTiles; y++) {
-                    result[x][y] = new Bitmap(w, h);
-                    bi.getRGB(bx + x * w, by + y * h, w, h, result[x][y].pixels, 0, w);
-                }
-            }
-
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
-        return null;
-        
-    }
-    
 }

@@ -2,56 +2,46 @@ package Mob;
 
 import java.awt.image.BufferedImage;
 
-import Art.Bitmap;
 import Entity.Entity;
-import Networking.TurnSynchronizer;
 
 public class Mob extends Entity{
-	public int dirAngle = 90;
-	double maxX,maxY,minX = 9001,minY = 9002;
-	public Mob(int x, int y) {
+
+	public boolean isMoving = true;
+	public boolean requireUpdate = false;
+	public Mob(int id){
+		this.setId(id);
+		sprite=Art.Art.BITMAP_ENTITY_GANGAR;
+	}
+	public Mob(int x, int y){
 		super(x, y);
-		sprite=Art.Art.BITMAP_ENTITY_BALL;
+		sprite=Art.Art.BITMAP_ENTITY_GANGAR;
+	}
+	public Mob(int x, int y, int id) {
+		super(x, y);
+		
+		this.id = id;
+		sprite=Art.Art.BITMAP_ENTITY_GANGAR;
 	}
 
 	public void tick() {
 		super.tick();
-		dirAngle+=5;
+		//dirAngle+=3;
 			dirAngle%=360;
 			//System.out.println(dirAngle);
 		move();
 	}
+	public void tickDecisions(){
+		
+	}
 	public void move(){
+		if(isMoving)
 		setFuturePositionFromAngle();
 	}
 	public void setFuturePositionFromAngle(){
-		
-
-		//fx = (int) (xpos + moveSpeed * Math.cos(Math.toRadians(dirAngle)));
-		//fy = (int) (ypos + moveSpeed * Math.sin(Math.toRadians(dirAngle)));
-		
-		
-		
-		//
 		double radians;
 		radians = Math.toRadians(dirAngle);
-		//System.out.println(moveSpeed * Math.cos(radians));
-		
 		fx = (xpos + moveSpeed * Math.sin(radians));
-		
-		fy = (ypos - moveSpeed * Math.cos(radians));
-		if(Math.min(fy, minY) < minY){
-			minY = Math.min(fy, minY);
-			System.out.println("miny: " + minY);
-		}
-		if(Math.min(fx, minX) < minX){
-			minX = Math.min(fx, minX);
-			System.out.println("minx:" + minX );
-		}
-		
-			
-		maxY = Math.max(fy, maxY);
-		
+		fy = (ypos - moveSpeed * Math.cos(radians));	
 		//System.out.println("minx:" + minX + "miny: " + minY);
 	}
 
@@ -83,7 +73,7 @@ public class Mob extends Entity{
 				dir = 7;
 			}
 		}
-		return Art.Art.BITMAP_ENTITY_BALL.getSprite(currentFrame / frameSpeed,(dir >= Art.Art.BITMAP_ENTITY_BALL.maxH ? 0 : dir));
+		return Art.Art.BITMAP_ENTITY_GANGAR.getSprite(currentFrame / frameSpeed,(dir >= Art.Art.BITMAP_ENTITY_GANGAR.maxH ? 0 : dir));
 	}
 
 }

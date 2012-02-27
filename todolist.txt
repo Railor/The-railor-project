@@ -1,16 +1,15 @@
 Important!
-Entity movement using 360* and if moving
-Server needs a way to tell client to create an entity of a certain type(way to identify what type a class is and create it)
-Server needs to tell client to create new entities, and give them an id,also direction and movement
-Server needs to update client Entity location, movement Direction and if object is moving
-Client needs to request an entity update(Server decides what to send based on what is near player)
+Add and remove Mobs as they go in and out of range of player, MAYBE? THOUGHTS?
+Server contains list of what client sees?
+Client just removes things that leave?
+Server sends update of all objects, client deletes ones that are not in list?
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
 
 Not as important
-Entitiy Wander( Location update, Random direction, if moving)
-Server tell client to remove a object
-Server checks to see if clients move request is valid, otherwise resends their position(Will stop all players geting stuck)
-Fix client not seeing animation of other clients
-Loading/Saving levels from file
+Loading/Saving levels from file ( SAVE TILES AS BYTES, MAYBE CLASSES AS WELL)
 Map editor working
 
 Thoughts

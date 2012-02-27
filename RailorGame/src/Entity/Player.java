@@ -2,10 +2,8 @@ package Entity;
 
 import java.awt.image.BufferedImage;
 
-import Art.Bitmap;
 import Level.Keys;
 import Level.Location;
-import Level.Screen;
 
 public class Player extends Entity {
 	public Keys keys = new Keys();
@@ -13,12 +11,14 @@ public class Player extends Entity {
 	public int clientID = 0;
 	public boolean updateLast = false;
 
-	public Player(int x, int y) {
+	public Player(int x, int y, int id) {
 		super(x, y);
 		type = 1;
 		dirType8 = true;
 		sprite = Art.Art.BITMAP_ENTITY_PLAYER;
 		moveSpeed = 10;
+		this.clientID = id;
+		this.id = id;
 	}
 
 	public void tick() {
@@ -34,10 +34,15 @@ public class Player extends Entity {
 			//lastx = xpos;;
 	//	if (lasty != l.getY())
 		//	lasty = ypos;
+		//if(lastx != this.xpos)
+			lastx = xpos;
+		//if(lastx != this.xpos)
+			lasty = ypos;
 		this.xpos = l.getX();
 		this.ypos = l.getY();
 		this.fx = l.getX();
 		this.fy = l.getY();
+		skipLastUpdate=true;
 
 	}
 
@@ -91,7 +96,13 @@ public class Player extends Entity {
 	public int getClientId() {
 		return clientID;
 	}
-
+	public void collision(Entity e){
+		this.setFX(this.getX());
+		this.setFY(this.getY());
+		collided = true;
+		//removeMe=true;
+		//System.out.println("I collided with an entity");
+	}
 	public Location getPlayerLocation() {
 		return new Location(clientID, (int)xpos, (int)ypos);
 
