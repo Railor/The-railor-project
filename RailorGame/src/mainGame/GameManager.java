@@ -51,13 +51,6 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 	Color background = Color.BLACK;
 	int fps = 0;
 	int frames = 0;
-	
-	
-	
-	
-	
-	
-	
 	long totalTime = 0;
 	long curTime = System.currentTimeMillis();
 	long lastTime = curTime;
@@ -79,11 +72,12 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 		gd = ge.getDefaultScreenDevice();
 		gc = gd.getDefaultConfiguration();
 		bi = gc.createCompatibleImage(ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
+		//gd.setFullScreenWindow(myFrame);
 	}
 	public void startLevel(int playerID){
 		starterup(myFrame);
+		if(pm.isServer && !pm.isClient || !pm.isServer && pm.isClient)
 		level = new Level("level.txt",this);
-		
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 
 		ProgramManager.STATE=GameState.GameScreen;
@@ -146,7 +140,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 	    double interpolation;
 
 	    //bool game_is_running = true;
-	    while( ProgramManager.STATE==GameState.GameScreen) {
+	    while( ProgramManager.STATE==GameState.GameScreen || pm.isServer) {
 
 	        loops = 0;
 	        while( System.currentTimeMillis() > next_game_tick && loops < MAX_FRAMESKIP) {
@@ -157,6 +151,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 	        }
 
 	        interpolation = ( System.currentTimeMillis() + SKIP_TICKS - next_game_tick ) / ( SKIP_TICKS );
+	        if(ProgramManager.STATE==GameState.GameScreen)
 	        displayGame( interpolation);
 	       // System.out.println(interpolation);
 	    }
@@ -170,7 +165,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 			if(pm.isServer && pm.server != null){
 				pm.server.startTick();
 			}
-			if(!pm.isServer && pm.client!= null){
+			if(pm.client!= null){
 				pm.client.startTick();
 				if(pm.client.performedTick=false){
 					return;
@@ -186,7 +181,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 			if(pm.isServer){
 				pm.server.endTick();
 			}
-			if(!pm.isServer && pm.client!= null){
+			if(pm.client!= null){
 				pm.client.endTick();
 			}
 			

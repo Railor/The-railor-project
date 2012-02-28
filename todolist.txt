@@ -1,7 +1,12 @@
 Important!
-
+host choose level
+editor save level name
+editor load map
+editor set map size
+editor increase the current size without deleteing map?
 all others check if need to update and update them
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Server scans for duplicate commands and removes them
 Client removes objects that leave its range
 

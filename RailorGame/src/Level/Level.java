@@ -51,7 +51,7 @@ public class Level {
 
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				
+				System.out.println(x + "<x y>" + y);
 				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
 			}
 		}
@@ -111,6 +111,7 @@ public class Level {
 			//System.out.println(ix + "IX - IY" + iy);
 			//System.out.println(tokens[x]);
 			if(ix < width && iy < height){
+				System.out.println((tokens[x]));
 			lv.tiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
 				//lv.tiles[ix][iy] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
 			}

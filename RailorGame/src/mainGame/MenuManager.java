@@ -25,15 +25,25 @@ public class MenuManager {
 		hostGame = new JButton();
 		hostGame.setSize(200, 20);
 		hostGame.setLocation(30, 200);
-		hostGame.setText("Host");
 		hostGame.setActionCommand("host");
+		if(!pm.isServer){
+		hostGame.setText("Host");
+		}else{
+			hostGame.setText("Stop Server");
+		}
 		hostGame.addActionListener(new ActionListener());
 		mainMenuPanel.add(hostGame);
 		connectGame = new JButton();
 		connectGame.setSize(200, 20);
 		connectGame.setLocation(30, 220);
-		connectGame.setText("Connect to Server");
-		connectGame.setActionCommand("join");
+		if(!pm.isClient){
+			connectGame.setText("Connect to Server");
+			}else{
+				connectGame.setText("Disconnect");
+			}
+			connectGame.setActionCommand("join");
+		
+		
 		connectGame.addActionListener(new ActionListener());
 		mainMenuPanel.add(connectGame);
 		mapEditor = new JButton();
@@ -48,9 +58,8 @@ public class MenuManager {
 		ipaddressField.setLocation(30, 280);
 		ipaddressField.setText("127.0.0.1");
 		mainMenuPanel.add(ipaddressField);
-		
 		frame.add(mainMenuPanel);
-		
+		frame.repaint();
 	}
 
 	public void keyPressed(KeyEvent e) {

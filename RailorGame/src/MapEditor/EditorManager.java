@@ -16,11 +16,13 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.event.MouseInputListener;
 
@@ -57,6 +59,10 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	int tileCountWidth = 6;
 	int tileCountHeight = 8;
 	public boolean mouseDown = false;
+	//Create a file chooser
+	JFileChooser fc;
+	//In response to a button click:
+	
 	public void starterup() {
 
 		pm.app.remove(pm.menuManager.mainMenuPanel);
@@ -77,12 +83,18 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 		gc = gd.getDefaultConfiguration();
 		bi = gc.createCompatibleImage(ProgramManager.SCREEN_WIDTH + 384,
 				ProgramManager.SCREEN_HEIGHT);
+		try {
+			fc = new JFileChooser(new File("").getCanonicalPath() + "/maps/");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void startEditor() {
 		starterup();
-		level = new Level("level.txt", this);
-		//level = new Level(1000,1000,this);
+		//level = new Level("level.txt", this);
+		level = new Level(50,50,this);
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH,
 				ProgramManager.SCREEN_HEIGHT);
 	}
@@ -92,7 +104,25 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 		myFrame = j;
 
 	}
-
+	public void saveMap(){
+		//fc.setSelectedFile(new File("fileToSave.txt"));
+		 int returnVal = fc.showSaveDialog(pm.app);
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fc.getSelectedFile();
+	            writeCurrentMapToFile(file.getAbsolutePath());
+	            //This is where a real application would open the file.
+	        } else {
+	        }
+	}
+	public void loadMap(){
+		int returnVal = fc.showOpenDialog(pm.app);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            loadMap(file.getAbsolutePath());
+            //This is where a real application would open the file.
+        } else {
+        }
+	}
 	public void drawSideTiles(Graphics g) {
 
 		for (int x = 0; x < tileCountWidth * tileCountHeight; x++) {
@@ -201,11 +231,11 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 
 	}
 
-	public void writeCurrentMapToFile() {
+	public void writeCurrentMapToFile(String place) {
 		FileWriter fstream;
 		try {
 			// System.out.println("outputeded");
-			fstream = new FileWriter(currentMapName);
+			fstream = new FileWriter(place);
 
 			BufferedWriter out = new BufferedWriter(fstream);
 			Tile[][] tiles = level.getLevelMap();
@@ -225,12 +255,15 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 			d.printStackTrace();
 		}
 	}
+	public void loadMap(String place) {
+		level = new Level(place,this);
+	}
 
 	public void keyPressed(KeyEvent e) {
 		keys.keyPressed(e);
 		if (e.getKeyCode() == Keys.KEY_B) {
 			
-			writeCurrentMapToFile();
+			//writeCurrentMapToFile();
 		}
 
 	}
