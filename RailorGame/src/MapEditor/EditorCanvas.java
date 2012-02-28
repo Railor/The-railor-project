@@ -2,8 +2,6 @@ package MapEditor;
 
 import java.awt.Canvas;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.event.MouseInputListener;
 
 public class EditorCanvas extends Canvas implements MouseInputListener{

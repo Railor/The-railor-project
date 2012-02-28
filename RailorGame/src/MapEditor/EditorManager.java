@@ -14,18 +14,12 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Random;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.event.MouseInputListener;
-
 import mainGame.GameManager;
 import mainGame.ProgramManager;
 import Level.Keys;
@@ -59,6 +53,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	int tileCountWidth = 6;
 	int tileCountHeight = 8;
 	public boolean mouseDown = false;
+	public int editorExtraWidth = 384;
 	//Create a file chooser
 	JFileChooser fc;
 	//In response to a button click:
@@ -71,7 +66,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 		canvas.addMouseMotionListener(this);
 		canvas.addMouseWheelListener(this);
 		// canvas.setIgnoreRepaint(true);
-		canvas.setSize(ProgramManager.SCREEN_WIDTH + 384,
+		canvas.setSize(ProgramManager.SCREEN_WIDTH + editorExtraWidth,
 				ProgramManager.SCREEN_HEIGHT);
 		canvas.setFocusable(false);
 		myFrame.add(canvas);
@@ -81,7 +76,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		gd = ge.getDefaultScreenDevice();
 		gc = gd.getDefaultConfiguration();
-		bi = gc.createCompatibleImage(ProgramManager.SCREEN_WIDTH + 384,
+		bi = gc.createCompatibleImage(ProgramManager.SCREEN_WIDTH + editorExtraWidth,
 				ProgramManager.SCREEN_HEIGHT);
 		try {
 			fc = new JFileChooser(new File("").getCanonicalPath() + "/maps/");
@@ -124,10 +119,11 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
         }
 	}
 	public void drawSideTiles(Graphics g) {
-
+		g.setColor(Color.BLACK);
 		for (int x = 0; x < tileCountWidth * tileCountHeight; x++) {
 			// System.out.println(x);
 			if (Art.Art.getTileFromTileNumber(x) != null) {
+				
 				g.drawImage(Art.Art.getTileFromTileNumber(x).getSprite(),
 						ProgramManager.SCREEN_WIDTH + x % tileCountWidth
 								* tileSize, x / tileCountWidth * tileSize, null);
@@ -135,7 +131,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 				// x%tileCountHeight * tileSize + ProgramManager.SCREEN_WIDTH,
 				// x/tileCountWidth* tileSize + ProgramManager.SCREEN_HEIGHT,
 				// null);
-				System.out.println(x);
+				//System.out.println(x);
 			} else {
 				// System.out.println("BREAKYY");
 				x = tileCountWidth * tileCountHeight;
@@ -144,6 +140,18 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 				// }
 			}
 		}
+		for(int x = 0; x < tileCountWidth;x++){
+			g.drawLine(ProgramManager.SCREEN_WIDTH + x * tileSize, 0, ProgramManager.SCREEN_WIDTH + x * tileSize, ProgramManager.SCREEN_HEIGHT);
+		}
+		for(int y = 0; y < tileCountHeight;y++){
+			g.drawLine(ProgramManager.SCREEN_WIDTH, y * tileSize, ProgramManager.SCREEN_WIDTH + editorExtraWidth , y * tileSize);
+		}
+		
+		g.setColor(Color.RED);
+		for(int x = 0;x < 3;x++){
+			g.drawRect(ProgramManager.SCREEN_WIDTH + (currentTileId % tileCountWidth) * tileSize + x, currentTileId / tileCountWidth * tileSize + x,64 - x*2, 64 - x*2);
+		}
+		
 
 	}
 
@@ -281,9 +289,6 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 				currentTileId = (ox + oy * tileCountWidth);
 			}
 		}else{
-			int offsetx = screen.screenX / GameManager.GAME_TILE_SIZE;
-			//System.out.println(offsetx);
-			int offsety = screen.screenY / GameManager.GAME_TILE_SIZE;
 			//System.out.println(offsety);
 			ox = (mx + screen.screenX)	/ GameManager.GAME_TILE_SIZE;
 			oy = (my + screen.screenY) / GameManager.GAME_TILE_SIZE;
@@ -360,7 +365,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 			//	if(e.getWheelRotation() < 0)
 			screen.addScreenX((GAME_TILE_SIZE) * e.getWheelRotation());
 			screen.addScreenY((GAME_TILE_SIZE) * e.getWheelRotation());
-			System.out.println(screen.screenX);
+			//System.out.println(screen.screenX);
 			
 		GameManager.GAME_TILE_SIZE+=e.getWheelRotation();
 		}

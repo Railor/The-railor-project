@@ -2,7 +2,6 @@ package Level;
 
 import java.awt.Rectangle;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import mainGame.GameManager;
@@ -51,7 +50,7 @@ public class Level {
 
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				System.out.println(x + "<x y>" + y);
+				//System.out.println(x + "<x y>" + y);
 				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
 			}
 		}
@@ -68,14 +67,11 @@ public class Level {
 			input = new FileReader(t);
 			BufferedReader bufRead = new BufferedReader(input);
 			
-			int count = 0;
 			map = bufRead.readLine();
 			map1+=map;
-			count++;
 			while (map != null) {
 				map = bufRead.readLine();
 				map1+=map;
-				count++;
 			}
 			//System.out.println("BITCH" + map1);
 			bufRead.close();
@@ -111,7 +107,7 @@ public class Level {
 			//System.out.println(ix + "IX - IY" + iy);
 			//System.out.println(tokens[x]);
 			if(ix < width && iy < height){
-				System.out.println((tokens[x]));
+				//System.out.println((tokens[x]));
 			lv.tiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
 				//lv.tiles[ix][iy] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
 			}
