@@ -1,5 +1,0 @@
-package Art;
-
-public class BitmapTile extends Bitmap {
-
-}
