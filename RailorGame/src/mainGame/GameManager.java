@@ -10,6 +10,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -25,7 +28,7 @@ import Level.Location;
 import Level.Screen;
 import Mob.Mob;
 
-public class GameManager {
+public class GameManager implements MouseListener,MouseMotionListener,MouseWheelListener{
 	// Create game window...
 	int TICKS_PER_SECOND = 30;
     double SKIP_TICKS = 1000 / TICKS_PER_SECOND;
@@ -48,6 +51,13 @@ public class GameManager {
 	Color background = Color.BLACK;
 	int fps = 0;
 	int frames = 0;
+	
+	
+	
+	
+	
+	
+	
 	long totalTime = 0;
 	long curTime = System.currentTimeMillis();
 	long lastTime = curTime;
@@ -60,6 +70,7 @@ public class GameManager {
 		//canvas.setIgnoreRepaint(true);
 		canvas.setSize(ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 		canvas.setFocusable(false);
+		canvas.addMouseWheelListener(this);
 		app.add(canvas);
 		app.pack();
 		canvas.createBufferStrategy(2);
@@ -155,6 +166,7 @@ public class GameManager {
 	public void updateGame(){
 		 
 		if (ProgramManager.STATE==GameState.GameScreen) {
+			
 			if(pm.isServer && pm.server != null){
 				pm.server.startTick();
 			}
@@ -177,6 +189,7 @@ public class GameManager {
 			if(!pm.isServer && pm.client!= null){
 				pm.client.endTick();
 			}
+			
 		}
 		if(ProgramManager.STATE!=GameState.GameScreen){
 			if(pm.isServer && pm.server != null){
@@ -327,20 +340,44 @@ public class GameManager {
 		
 
 	}
-	public class MouseHandler implements MouseListener {
-		public void mouseClicked(MouseEvent e) {
-		}
-
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		public void mouseExited(MouseEvent e) {
-		}
-
-		public void mousePressed(MouseEvent e) {
-		}
-
-		public void mouseReleased(MouseEvent e) {
-		}
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		// TODO Auto-generated method stub
 	}
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

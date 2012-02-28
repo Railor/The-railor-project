@@ -15,8 +15,8 @@ import Networking.NetworkServer;
 public class ProgramManager implements KeyListener, MouseListener{
 	public GameFrame app = new GameFrame();
 	public GameManager gameManager;
-	public static int SCREEN_WIDTH = 800;
-	public static int SCREEN_HEIGHT = 600;
+	public static int SCREEN_WIDTH = 1000;
+	public static int SCREEN_HEIGHT = 1000;
 	public String connectip = "127.0.0.1";
 	public int updateRange = 1100;
 	public enum GameState {

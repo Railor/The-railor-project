@@ -21,6 +21,7 @@ public class Art {
 	////////////////////////////////////////////////////////////
 	public static BitmapTile BITMAP_TILE_GRASS = new BitmapTile("tiles",1,2,true);
 	public static BitmapTile BITMAP_TILE_DIRT = new BitmapTile("tiles",2,0,true);
+	public static BitmapTile BITMAP_TILE_FOG = new BitmapTile("tiles",4,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS1 = new BitmapTile("tiles",0,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS2 = new BitmapTile("tiles",1,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS3 = new BitmapTile("tiles",2,1,true);
@@ -43,7 +44,10 @@ public class Art {
 	public static BitmapTile BITMAP_TILE_GRASS_WALL8 = new BitmapTile("tiles",5,2,false);
 	public static BitmapTile BITMAP_TILE_GRASS_WALL9 = new BitmapTile("tiles",4,1,false);
 	public static BitmapTile BITMAP_TILE_GRASS_WALL10 = new BitmapTile("tiles",5,3,true);
-
+	public static BitmapTile BITMAP_TILE_GRASS_WALL11 = new BitmapTile("tiles",0,4,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL12 = new BitmapTile("tiles",1,4,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL13 = new BitmapTile("tiles",2,4,true);
+	
 	//public static BitmapTile BITMAP_TILE_GRASS = new BitmapTile(setupImage("tiles",0,0,64,64),64,64,true);
 	/*
 	public static BitmapTile BITMAP_TILE_GRASS_WALL = new BitmapTile(setupImage("tiles",64,0,64,64),64,64,false);
@@ -82,6 +86,7 @@ public class Art {
 		try {
 			
             BufferedImage bi = ImageIO.read(Art.class.getResource(artLocation + string + artFileType));
+            
             return bi;
 		
 		} catch (IOException e) {

@@ -1,6 +1,7 @@
 package Level;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import mainGame.GameManager;
@@ -17,7 +18,6 @@ public class Screen {
 	public Entity owner = null;
 	GameManager gm;
 	EditorManager em;
-
 	public Screen(GameManager gameManager, int w, int h) {
 
 		this.gm = gameManager;
@@ -44,12 +44,11 @@ public class Screen {
 
 	public void tick() {
 		if (owner != null) {
-			
 			setScreenOnEntity(owner);
 			// System.out.println("ownerx: " + owner.getX() + "| screenx: " +
 			// screenX + "| screeny: " + screenY);
-		}else{
-			
+		} else {
+
 		}
 	}
 
@@ -91,42 +90,54 @@ public class Screen {
 	public void drawLevelMap(Level l, Graphics g) {
 		Tile map[][] = l.getLevelMap();
 		tileSize = GameManager.GAME_TILE_SIZE;
-		
+
 		int offsetX = screenX / GameManager.GAME_TILE_SIZE;
 		int offsetY = screenY / GameManager.GAME_TILE_SIZE;
 		if (offsetX < 0)
 			offsetX = 0;
 		if (offsetY < 0)
 			offsetY = 0;
-		for (int x = offsetX; x < offsetX + w / GameManager.GAME_TILE_SIZE + 2 && x < l.width; x++) {
-			for (int y = offsetY; y < offsetY + h / GameManager.GAME_TILE_SIZE + 3 && y < l.height; y++) {
+		for (int x = offsetX; x < offsetX + w / GameManager.GAME_TILE_SIZE + 2
+				&& x < l.width; x++) {
+			for (int y = offsetY; y < offsetY + h / GameManager.GAME_TILE_SIZE
+					+ 3
+					&& y < l.height; y++) {
 				// g.drawImage(rc.tiles[map[x][y].tile],x*tileSize-screenX,y*tileSize-screenY,null);
-				g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id).getSprite(), x * tileSize - screenX, y
-						* tileSize - screenY, null);
+				//bi.setData(Art.Art.getTileFromTileNumber(map[x][y].id)
+					//	.getSprite().getData());
+				g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
+						.getSprite(), x * tileSize - screenX, y * tileSize
+						- screenY, null);
 			}
 		}
+		//g.drawImage(bi, 0,0, null);
+		
+
 	}
 
-	public void drawEntities(ArrayList<Entity> entities, Graphics g,double d) {
-		int fx = 0,fy = 0;
-		
-		for(Entity e : entities){
+	public void drawEntities(ArrayList<Entity> entities, Graphics g, double d) {
+		int fx = 0, fy = 0;
+
+		for (Entity e : entities) {
 			fx = (int) ((e.getX() - e.lastx) * d);
 			fy = (int) ((e.getFY() - e.lasty) * d);
-			if(e instanceof Player){
-				
-				//if(owner == e){
-					//System.out.println("Player x: " + e.getX() + " lastX: " + e.lastx);
-					
-					//if(screenX>0 && screenX < boundaryX)
-						fx=0;
-					//if(screenY>0 && screenY < boundaryY)
-						fy=0;
-				//}else{
-				//}
+			if (e instanceof Player) {
+
+				// if(owner == e){
+				// System.out.println("Player x: " + e.getX() + " lastX: " +
+				// e.lastx);
+
+				// if(screenX>0 && screenX < boundaryX)
+				fx = 0;
+				// if(screenY>0 && screenY < boundaryY)
+				fy = 0;
+				// }else{
+				// }
 			}
-			g.drawImage(e.getSprite(),(int)(e.getX() + fx - screenX),(int)(e.getY() + fy - screenY),e.getWidth(),e.getHeight(),null);
+			g.drawImage(e.getSprite(), (int) (e.getX() + fx - screenX),
+					(int) (e.getY() + fy - screenY), e.getWidth(),
+					e.getHeight(), null);
 		}
-		
+
 	}
 }

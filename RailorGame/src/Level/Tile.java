@@ -1,7 +1,5 @@
 package Level;
 
-import java.awt.image.BufferedImage;
-
 import Art.BitmapTile;
 
 public class Tile {
