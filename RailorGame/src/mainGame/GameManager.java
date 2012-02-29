@@ -78,7 +78,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 		System.out.println("START LEVEL");
 		starterup(myFrame);
 		System.out.println("LEVEL = nEW LEVEL");
-		level = new Level(50,50,this);
+		level = new Level("level.txt",this);
 		System.out.println("AFTER LEVEL");
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 		System.out.println("Creating screen");
