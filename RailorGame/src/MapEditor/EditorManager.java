@@ -299,15 +299,20 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 			//System.out.println(ox + "eee" + oy);
 			if (Art.Art.getTileFromTileNumber(ox + oy * tileCountWidth) != null) {
 				currentTileId = (ox + oy * tileCountWidth);
+			}else{
+				System.out.println("FAILED" );
 			}
 		}else{
 			//System.out.println(offsety);
 			ox = (mx + screen.screenX)	/ GameManager.GAME_TILE_SIZE;
 			oy = (my + screen.screenY) / GameManager.GAME_TILE_SIZE;
-			if(layer==1)
+			if(layer==1){
 			level.levelMap[ox][oy].id=currentTileId;
-			else
+			}else{
 				level.backMap[ox][oy].id = currentTileId;
+			
+			}
+			System.out.println("front ox" + ox + "oy" + oy + "id" + level.levelMap[ox][oy].id + "Back ox" + ox + "oy" + oy + "id" + level.backMap[ox][oy].id );
 		}
 		
 		//System.out.println(currentTileId);

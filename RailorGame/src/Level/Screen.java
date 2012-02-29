@@ -116,7 +116,7 @@ public class Screen {
 	}
 		public void drawLevelMap(Level l, Graphics g,boolean t) {
 			Tile map[][] = l.getLevelMap();
-			Tile backmap[][] = l.getLevelMap();
+			Tile backmap[][] = l.backMap;
 			tileSize = GameManager.GAME_TILE_SIZE;
 
 			int offsetX = screenX / GameManager.GAME_TILE_SIZE;
@@ -135,13 +135,24 @@ public class Screen {
 						//	.getSprite().getData());
 					
 					
-					g.drawImage(Art.Art.getTileFromTileNumber(backmap[x][y].id)
-							.getSprite(), x * tileSize - screenX, y * tileSize
-							- screenY, null);
-				//if((map[x][y].id==1))
-						//g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
-						//		.getSprite(), x * tileSize - screenX, y * tileSize
-						//		- screenY, null);
+						if(backmap[x][y].id != 0)
+							g.drawImage(Art.Art.getTileFromTileNumber(backmap[x][y].id)
+									.getSprite(), x * tileSize - screenX, y * tileSize
+									- screenY, null);
+								g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
+										.getSprite(), x * tileSize - screenX, y * tileSize
+										- screenY, null);
+							if(x == 0 && y == 0)
+							System.out.println("map id = " + map[x][y].id + "backmap id = " + backmap[x][y].id);
+							/*
+							 * 						g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
+								.getSprite(), x * tileSize - screenX, y * tileSize
+								- screenY, null);
+						
+							g.drawImage(Art.Art.getTileFromTileNumber(backmap[x][y].id)
+									.getSprite(), x * tileSize - screenX, y * tileSize
+									- screenY, null);
+							 */
 					
 				}
 			}
