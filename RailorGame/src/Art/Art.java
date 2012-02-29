@@ -38,7 +38,7 @@ public class Art {
 	//the true/false statement is if the player can walk through the tile
 	public static BitmapTile BITMAP_TILE_GRASS = new BitmapTile("tiles",1,2,true);
 	public static BitmapTile BITMAP_TILE_DIRT = new BitmapTile("tiles",2,0,true);
-	public static BitmapTile BITMAP_TILE_FOG = new BitmapTile("tiles",4,1,true);
+	public static BitmapTile BITMAP_TILE_FOG = new BitmapTile("tiles",4,1,false);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS1 = new BitmapTile("tiles",0,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS2 = new BitmapTile("tiles",1,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS3 = new BitmapTile("tiles",2,1,true);

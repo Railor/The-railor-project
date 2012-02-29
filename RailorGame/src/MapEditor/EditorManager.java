@@ -18,6 +18,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import mainGame.GameManager;
@@ -54,12 +56,18 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	int tileCountHeight = 8;
 	public boolean mouseDown = false;
 	public int editorExtraWidth = 384;
+	////////////////////////////////////////////////////////////////////////////////
+	int[] randomGrass = {Art.Art.BITMAP_TILE_GRASS.id};
+	Random random = new Random();
+	
+	////////////////////////////////////////////////////////////////////////////////
 	//Create a file chooser
 	JFileChooser fc;
 	//In response to a button click:
-	
+	public int getRandom(int[] rands){
+		return random.nextInt(rands.length);
+	}
 	public void starterup() {
-
 		pm.app.remove(pm.menuManager.mainMenuPanel);
 		canvas = new EditorCanvas();
 		canvas.addMouseListener(this);
@@ -89,7 +97,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	public void startEditor() {
 		starterup();
 		//level = new Level("level.txt", this);
-		level = new Level(50,50,this);
+		level = new Level(1000,1000,this);
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH,
 				ProgramManager.SCREEN_HEIGHT);
 	}

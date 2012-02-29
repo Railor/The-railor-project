@@ -76,7 +76,6 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 	}
 	public void startLevel(int playerID){
 		starterup(myFrame);
-		if(pm.isServer && !pm.isClient || !pm.isServer && pm.isClient)
 		level = new Level("level.txt",this);
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 

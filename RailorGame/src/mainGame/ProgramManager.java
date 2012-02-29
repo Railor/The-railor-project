@@ -62,12 +62,14 @@ public class ProgramManager implements KeyListener, MouseListener {
 		menuItemEditorSave = new JMenuItem("Save Game");
 		menuItemEditorSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(STATE == GameState.EditorScreen)
 				editorManager.saveMap();
 			}
 		});
 		menuItemEditorLoad = new JMenuItem("Load Game");
 		menuItemEditorLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(STATE == GameState.EditorScreen)
 				editorManager.loadMap();
 			}
 		});
