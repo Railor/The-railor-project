@@ -74,7 +74,7 @@ public class NetworkServer {
 			server.addListener(new Listener() {
 				public void received(Connection connection, Object object) {
 					// System.out.println("Received message in server");
-
+					System.out.println("GENERAL RECEIVED");
 					if (object instanceof NetworkCommands) {
 						NetworkCommands ncs = (NetworkCommands) object;
 						networkCommandsIn.add(ncs);
@@ -82,12 +82,13 @@ public class NetworkServer {
 						// System.out.println("we have received commands captain");
 					}
 					if(object instanceof StartGamePacket){
-						
+						System.out.println("RECEIVED START GAME PACKET");
 						connection.sendTCP(new StartGamePacket(TurnSynchronizer.synchedSeed, connection.getID()));
 						for (Connection c : server.getConnections()) {
 							if(c.getID() != connection.getID())
 							connection.sendUDP(new PlayerCreatePacket(c.getID()));
 						}
+						System.out.println("ADD NEW PLAYER");
 						addNewPlayer(connection.getID());
 						
 					}

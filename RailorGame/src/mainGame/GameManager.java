@@ -75,10 +75,13 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 		//gd.setFullScreenWindow(myFrame);
 	}
 	public void startLevel(int playerID){
+		System.out.println("START LEVEL");
 		starterup(myFrame);
-		level = new Level("level.txt",this);
+		System.out.println("LEVEL = nEW LEVEL");
+		level = new Level(50,50,this);
+		System.out.println("AFTER LEVEL");
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
-
+		System.out.println("Creating screen");
 		ProgramManager.STATE=GameState.GameScreen;
 	}
 	public GameManager(JFrame j, ProgramManager program) {
@@ -139,7 +142,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 	    double interpolation;
 
 	    //bool game_is_running = true;
-	    while( ProgramManager.STATE==GameState.GameScreen || pm.isServer) {
+	    while( ProgramManager.STATE==GameState.GameScreen) {
 
 	        loops = 0;
 	        while( System.currentTimeMillis() > next_game_tick && loops < MAX_FRAMESKIP) {

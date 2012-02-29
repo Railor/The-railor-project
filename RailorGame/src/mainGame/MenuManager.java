@@ -105,6 +105,7 @@ public class MenuManager {
 					
 					pm.isClient = true;
 				}else{
+					System.out.println("DISC FROM BUTTON");
 					connectGame.setText("Connect to Server");
 					pm.client.shutDown();
 					pm.client=null;

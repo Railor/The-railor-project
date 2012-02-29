@@ -91,6 +91,7 @@ public class NetworkClient {
 					}
 				}
 				if (object instanceof NetworkCommands) {
+					System.out.println("Receive network commands");
 					NetworkCommands ncs = (NetworkCommands) object;
 					aCom.add(ncs);
 				}
@@ -118,9 +119,11 @@ public class NetworkClient {
 					TurnSynchronizer.synchedRandom.setSeed(sg.getGameSeed());
 					System.out.println(TurnSynchronizer.synchedSeed
 							+ "CLIENT SYNCHED SEED RECEIEVED" + clientId);
+					
 					pm.gameManager.startLevel(clientId);
 				}
 				if(object instanceof PlayerCreatePacket){
+					System.out.println("RECEIVE PLAYER CREATE PACKET");
 					PlayerCreatePacket c = (PlayerCreatePacket) object;
 					Player p = new Player(50,50,(c.id));
 					pm.gameManager.level.createPlayer(p);
@@ -129,6 +132,7 @@ public class NetworkClient {
 						//System.out.println("myplayer = p!");
 						pm.gameManager.myPlayer = p;
 					}
+					System.out.println("END RECEIVE PLAYER CREATE PACKET");
 					//pm.gameManager.level.createPlayer(p);
 				}
 
@@ -178,7 +182,7 @@ public class NetworkClient {
 		// System.out.println("asdsad");
 		// client=null;
 		if (object instanceof Location) {
-
+			System.out.println("Location update");
 			Location l = (Location) object;
 				Entity et = pm.gameManager.level.getEntityById(l.getID());
 				if (et != null)
@@ -223,6 +227,7 @@ public class NetworkClient {
 	}
 	public void startTick() {
 		//performTick();
+		System.out.println("Start tick");
 		if(ProgramManager.STATE==GameState.GameScreen){
 			while (performTick()) {
 			}
@@ -233,6 +238,7 @@ public class NetworkClient {
 	}
 
 	public void endTick() {
+		System.out.println("end tick");
 		sendMessage();
 	}
 
@@ -252,6 +258,7 @@ public class NetworkClient {
 
 	}
 	public void shutDown(){
+		System.out.println("Shutdown function");
 		client.close();
 	}
 
