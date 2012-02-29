@@ -128,6 +128,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	}
 	public void drawSideTiles(Graphics g) {
 		g.setColor(Color.BLACK);
+		g.drawString(layer==0?"Back":"Front", 20, 20);
 		for (int x = 0; x < tileCountWidth * tileCountHeight; x++) {
 			// System.out.println(x);
 			if (Art.Art.getTileFromTileNumber(x) != null) {
