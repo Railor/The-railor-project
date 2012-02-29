@@ -114,7 +114,7 @@ public class Screen {
 			}
 		}
 	}
-		public void drawLevelMap(Level l, Graphics g,boolean t) {
+		public void drawLevelMap(Level l, Graphics g,int t) {
 			Tile map[][] = l.getLevelMap();
 			Tile backmap[][] = l.backMap;
 			tileSize = GameManager.GAME_TILE_SIZE;
@@ -135,15 +135,17 @@ public class Screen {
 						//	.getSprite().getData());
 					
 					
-						if(backmap[x][y].id != 0)
+						if(backmap[x][y].id != 0){
+							if(t == 0 || t == 2){
 							g.drawImage(Art.Art.getTileFromTileNumber(backmap[x][y].id)
 									.getSprite(), x * tileSize - screenX, y * tileSize
 									- screenY, null);
+							}
+						}
+								if(t == 1 || t == 2)
 								g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
 										.getSprite(), x * tileSize - screenX, y * tileSize
 										- screenY, null);
-							if(x == 0 && y == 0)
-							System.out.println("map id = " + map[x][y].id + "backmap id = " + backmap[x][y].id);
 							/*
 							 * 						g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
 								.getSprite(), x * tileSize - screenX, y * tileSize

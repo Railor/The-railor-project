@@ -15,6 +15,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -94,13 +96,14 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 		//gd.setFullScreenWindow(myFrame);
 	}
 	public void startLevel(int playerID){
-		System.out.println("START LEVEL");
 		starterup(myFrame);
-		System.out.println("LEVEL = nEW LEVEL");
-		level = new Level("level.txt",this);
-		System.out.println("AFTER LEVEL");
+		try {
+			level = new Level(new File("").getCanonicalPath() + "/maps/world.txt",this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		screen = new Screen(this, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
-		System.out.println("Creating screen");
 		ProgramManager.STATE=GameState.GameScreen;
 	}
 	public GameManager(JFrame j, ProgramManager program) {
@@ -111,7 +114,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 	}
 	public void draw(Graphics g,double d ) {
 		if (ProgramManager.STATE==GameState.GameScreen) {
-			screen.drawLevelMap(level,g);
+			screen.drawLevelMap(level,g,2);
 			if(myPlayer!= null){
 				screen.owner=myPlayer;
 				screen.drawEntities(pm.gameManager.level.getEntitiesInRange(ProgramManager.SCREEN_WIDTH + 100,screen.owner), g,d);
@@ -126,7 +129,7 @@ public class GameManager implements MouseListener,MouseMotionListener,MouseWheel
 			
 			g2d = bi.createGraphics();
 			g2d.setColor(background);
-			g2d.fillRect(0, 0, 639, 479);
+			g2d.fillRect(0, 0, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT);
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************

@@ -127,8 +127,9 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
         }
 	}
 	public void drawSideTiles(Graphics g) {
+		g.setColor(Color.RED);
+		g.drawString(layer==0?"Back":layer==1?"Front":"Both", 20, 20);
 		g.setColor(Color.BLACK);
-		g.drawString(layer==0?"Back":"Front", 20, 20);
 		for (int x = 0; x < tileCountWidth * tileCountHeight; x++) {
 			// System.out.println(x);
 			if (Art.Art.getTileFromTileNumber(x) != null) {
@@ -166,10 +167,10 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 
 	public void drawCanvas() {
 		try {
-
+			
 			g2d = bi.createGraphics();
 			g2d.setColor(background);
-			g2d.fillRect(0, 0, 1000, 479);
+			g2d.fillRect(0, 0, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT + editorExtraWidth);
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************
@@ -202,6 +203,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 		drawCanvas();
 		//if(mouseDown)
 		//TileSelect();
+		
 		if (screen != null)
 			screen.tick();
 		if (!buffer.contentsLost())
@@ -228,7 +230,8 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	public void draw(Graphics g) {
 
 		// if (pm.STATE == GameState.EditorScreen) {
-		screen.drawLevelMap(level, g,layer!=0);
+		
+		screen.drawLevelMap(level, g,layer);
 		// }
 	}
 
@@ -264,6 +267,13 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 					out.write(tiles[x][y].id + ",");
 				}
 			}
+			out.write("backtile,");
+			for (int x = 0; x < level.width; x++) {
+				for (int y = 0; y < level.height; y++) {
+					// out.write("hey");
+					out.write(level.backMap[x][y].id + ",");
+				}
+			}
 			out.close();
 
 		} catch (IOException d) {
@@ -279,10 +289,10 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	public void keyPressed(KeyEvent e) {
 		keys.keyPressed(e);
 		if (e.getKeyCode() == Keys.KEY_B) {
-			if(layer==0)
-				layer=1;
-			else
+			if(layer==2)
 				layer=0;
+			else
+				layer++;
 			System.out.println(layer);
 			//writeCurrentMapToFile();
 		}
@@ -307,13 +317,12 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 			//System.out.println(offsety);
 			ox = (mx + screen.screenX)	/ GameManager.GAME_TILE_SIZE;
 			oy = (my + screen.screenY) / GameManager.GAME_TILE_SIZE;
-			if(layer==1){
+			if(e.getButton() == MouseEvent.BUTTON1){
 			level.levelMap[ox][oy].id=currentTileId;
-			}else{
+			}else if(e.getButton() == MouseEvent.BUTTON3){
 				level.backMap[ox][oy].id = currentTileId;
 			
 			}
-			System.out.println("front ox" + ox + "oy" + oy + "id" + level.levelMap[ox][oy].id + "Back ox" + ox + "oy" + oy + "id" + level.backMap[ox][oy].id );
 		}
 		
 		//System.out.println(currentTileId);
@@ -321,10 +330,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 
 	public void mousePressed(MouseEvent e) {
 		mouseDown=true;
-		
-		if (e.getButton() == MouseEvent.BUTTON1) {
 			TileSelect(e);
-		}
 
 	}
 
@@ -337,11 +343,6 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		mouseDown=true;
-		
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			
-			
-		}
 	}
 
 	@Override

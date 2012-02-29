@@ -54,11 +54,24 @@ public class Level {
 			for (int y = 0; y < h; y++) {
 				//System.out.println(x + "<x y>" + y);
 				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
-				backMap[x][y] = new Tile(Art.Art.BITMAP_TILE_FOG);
+				backMap[x][y] = new Tile(Art.Art.BITMAP_TILE_TRANS);
 			}
 		}
 	}
-
+	public Level(String mapFile, EditorManager editorManager) {
+		LevelProperties l = loadMap(mapFile);
+		width = l.width;
+		height = l.height;
+		em = editorManager;
+		levelMap = l.tiles;
+		backMap = l.backTiles;
+		System.out.println("finished level");
+		//for (int x = 0; x < width; x++) {
+			//for (int y = 0; y < height; y++) {
+				//levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
+			//}
+		//}
+	}
 	public LevelProperties loadMap(String t) {
 		LevelProperties lv = new LevelProperties();
 		lv.name = t;
@@ -110,16 +123,16 @@ public class Level {
 		lv.width = width;
 		lv.height = height;
 		boolean backs = false;
-		for(int x = breaker; x<tokens.length;x++){
-			if(tokens[x].compareTo("backTile")==0){
+		for(int x = breaker; x<tokens.length-1;x++){
+			if(tokens[x].compareTo("backtile")==0){
 				ix=0;
 				iy=0;
 				backs=true;
 				x++;
 				
 			}
+			
 			//System.out.println(ix + "IX - IY" + iy);
-			//System.out.println(tokens[x]);
 			if(ix < width && iy < height && !backs){
 				//System.out.println((tokens[x]));
 			lv.tiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
@@ -138,19 +151,7 @@ public class Level {
 		return lv;
 	}
 
-	public Level(String mapFile, EditorManager editorManager) {
-		LevelProperties l = loadMap(mapFile);
-		width = l.width;
-		height = l.height;
-		em = editorManager;
-		levelMap = l.tiles;
-		backMap = l.backTiles;
-		//for (int x = 0; x < width; x++) {
-			//for (int y = 0; y < height; y++) {
-				//levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
-			//}
-		//}
-	}
+	
 
 	public void tick() {
 		if (gm.pm.isClient) {

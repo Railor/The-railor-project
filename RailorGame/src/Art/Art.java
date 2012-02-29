@@ -37,35 +37,35 @@ public class Art {
 	//it auto adds .png, SAVE ALL IMAGES AS PNG
 	//The first 2 values are position, 0,0 being the top left, 4,0 would mean 5th tile to the right in the sheet, on the first row
 	//the true/false statement is if the player can walk through the tile
+	public static BitmapTile BITMAP_TILE_TRANS = new BitmapTile("tiles",0,0,true);
 	public static BitmapTile BITMAP_TILE_GRASS = new BitmapTile("tiles",1,2,true);
 	public static BitmapTile BITMAP_TILE_DIRT = new BitmapTile("tiles",2,0,true);
-	public static BitmapTile BITMAP_TILE_FOG = new BitmapTile("tiles",4,1,false);
+	
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS1 = new BitmapTile("tiles",0,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS2 = new BitmapTile("tiles",1,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS3 = new BitmapTile("tiles",2,1,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS4 = new BitmapTile("tiles",0,2,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS5 = new BitmapTile("tiles",2,2,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS6 = new BitmapTile("tiles",0,3,true);
-	public static BitmapTile BITMAP_TILE_DIRT_GRASS7 = new BitmapTile("tiles",1,3,true);
-	public static BitmapTile BITMAP_TILE_DIRT_GRASS8 = new BitmapTile("tiles",2,3,true);
+	public static BitmapTile BITMAP_TILE_DIRT_GRASS7 = new BitmapTile("tiles",1,3,false);
+	public static BitmapTile BITMAP_TILE_DIRT_GRASS8 = new BitmapTile("tiles",2,3,false);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS_CORNER1 = new BitmapTile("tiles",0,0,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS_CORNER2 = new BitmapTile("tiles",1,0,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS_CORNER3 = new BitmapTile("tiles",3,3,true);
 	public static BitmapTile BITMAP_TILE_DIRT_GRASS_CORNER4 = new BitmapTile("tiles",4,3,true);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL1 = new BitmapTile("tiles",3,0,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL2 = new BitmapTile("tiles",4,0,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL3 = new BitmapTile("tiles",5,0,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL4 = new BitmapTile("tiles",3,1,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL5 = new BitmapTile("tiles",5,1,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL6 = new BitmapTile("tiles",3,2,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL7 = new BitmapTile("tiles",4,2,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL8 = new BitmapTile("tiles",5,2,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL9 = new BitmapTile("tiles",4,1,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL10 = new BitmapTile("tiles",5,3,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL11 = new BitmapTile("tiles",0,4,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL12 = new BitmapTile("tiles",1,4,false);
-	public static BitmapTile BITMAP_TILE_GRASS_WALL13 = new BitmapTile("tiles",2,4,false);
-	public static final BitmapTile BITMAP_TILE_DONTLOAD = null;
+	public static BitmapTile BITMAP_TILE_GRASS_WALL1 = new BitmapTile("tiles",3,0,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL2 = new BitmapTile("tiles",4,0,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL3 = new BitmapTile("tiles",5,0,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL4 = new BitmapTile("tiles",3,1,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL5 = new BitmapTile("tiles",5,1,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL6 = new BitmapTile("tiles",3,2,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL7 = new BitmapTile("tiles",4,2,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL8 = new BitmapTile("tiles",5,2,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL9 = new BitmapTile("tiles",4,1,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL10 = new BitmapTile("tiles",5,3,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL11 = new BitmapTile("tiles",0,4,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL12 = new BitmapTile("tiles",1,4,true);
+	public static BitmapTile BITMAP_TILE_GRASS_WALL13 = new BitmapTile("tiles",2,4,true);
 	
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////
