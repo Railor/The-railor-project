@@ -16,7 +16,7 @@ public class Player extends Entity {
 		type = 1;
 		dirType8 = true;
 		sprite = Art.Art.BITMAP_ENTITY_PLAYER;
-		moveSpeed = 10;
+		moveSpeed = 25;
 		this.clientID = id;
 		this.id = id;
 	}
