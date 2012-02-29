@@ -26,15 +26,9 @@ public class Player extends Entity {
 		// lastx = xpos;
 		// lasty= ypos;
 		keyUpdate();
-
 	}
 
 	public void setLocation(Location l) {
-		//if (lastx != l.getX())
-			//lastx = xpos;;
-	//	if (lasty != l.getY())
-		//	lasty = ypos;
-		//if(lastx != this.xpos)
 			lastx = xpos;
 		//if(lastx != this.xpos)
 			lasty = ypos;
