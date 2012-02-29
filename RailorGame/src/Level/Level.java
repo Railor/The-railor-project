@@ -14,6 +14,7 @@ import Mob.Mob;
 public class Level {
 	public int width, height;
 	public Tile[][] levelMap;
+	public Tile[][] backMap;
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Player> players = new ArrayList<Player>();
 	GameManager gm;
@@ -25,7 +26,7 @@ public class Level {
 		height = h;
 		gm = gameManager;
 		levelMap = new Tile[w][h];
-
+		backMap = new Tile[w][h];
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
 				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
@@ -41,17 +42,19 @@ public class Level {
 		height = l.height;
 		gm = gameManager;
 		levelMap = l.tiles;
+		backMap = l.backTiles;
 	}
 	public Level(int w, int h, EditorManager editorManager) {
 		width = w;
 		height = h;
 		em = editorManager;
 		levelMap = new Tile[w][h];
-
+		backMap = new Tile[w][h];
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
 				//System.out.println(x + "<x y>" + y);
 				levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS);
+				backMap[x][y] = new Tile(Art.Art.BITMAP_TILE_FOG);
 			}
 		}
 	}
@@ -66,7 +69,9 @@ public class Level {
 		try {
 			input = new FileReader(t);
 			BufferedReader bufRead = new BufferedReader(input);
-			
+			if(!bufRead.ready()){
+				System.out.println("COULD NOT");
+			}
 			map = bufRead.readLine();
 			map1+=map;
 			while (map != null) {
@@ -99,17 +104,29 @@ public class Level {
 			}
 		}
 		lv.tiles = new Tile[width][height];
+		lv.backTiles = new Tile[width][height];
 		int ix = 0,iy = 0;
 		//System.out.println("WIDTH: " + width + "| HEIGHT: " + height);
 		lv.width = width;
 		lv.height = height;
+		boolean backs = false;
 		for(int x = breaker; x<tokens.length;x++){
+			if(tokens[x].compareTo("backTile")==0){
+				ix=0;
+				iy=0;
+				backs=true;
+				x++;
+				
+			}
 			//System.out.println(ix + "IX - IY" + iy);
 			//System.out.println(tokens[x]);
-			if(ix < width && iy < height){
+			if(ix < width && iy < height && !backs){
 				//System.out.println((tokens[x]));
 			lv.tiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
 				//lv.tiles[ix][iy] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
+			}
+			if(backs){
+				lv.backTiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
 			}
 			if(ix<(width-1)){
 				ix++;
@@ -127,7 +144,7 @@ public class Level {
 		height = l.height;
 		em = editorManager;
 		levelMap = l.tiles;
-		
+		backMap = l.backTiles;
 		//for (int x = 0; x < width; x++) {
 			//for (int y = 0; y < height; y++) {
 				//levelMap[x][y] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);

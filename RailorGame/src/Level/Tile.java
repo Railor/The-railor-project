@@ -15,4 +15,7 @@ public class Tile {
 		//tile=TILE_TYPE.getSprite();
 		//isPassable=TILE_TYPE.isPassable;
 	}
+	public Tile(){
+		
+	}
 }

@@ -88,6 +88,7 @@ public class Screen {
 
 	public void drawLevelMap(Level l, Graphics g) {
 		Tile map[][] = l.getLevelMap();
+		Tile backmap[][] = l.getLevelMap();
 		tileSize = GameManager.GAME_TILE_SIZE;
 
 		int offsetX = screenX / GameManager.GAME_TILE_SIZE;
@@ -104,11 +105,46 @@ public class Screen {
 				// g.drawImage(rc.tiles[map[x][y].tile],x*tileSize-screenX,y*tileSize-screenY,null);
 				//bi.setData(Art.Art.getTileFromTileNumber(map[x][y].id)
 					//	.getSprite().getData());
-				g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
+				//g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
+					//	.getSprite(), x * tileSize - screenX, y * tileSize
+					//	- screenY, null);
+				g.drawImage(Art.Art.getTileFromTileNumber(backmap[x][y].id)
 						.getSprite(), x * tileSize - screenX, y * tileSize
 						- screenY, null);
 			}
 		}
+	}
+		public void drawLevelMap(Level l, Graphics g,boolean t) {
+			Tile map[][] = l.getLevelMap();
+			Tile backmap[][] = l.getLevelMap();
+			tileSize = GameManager.GAME_TILE_SIZE;
+
+			int offsetX = screenX / GameManager.GAME_TILE_SIZE;
+			int offsetY = screenY / GameManager.GAME_TILE_SIZE;
+			if (offsetX < 0)
+				offsetX = 0;
+			if (offsetY < 0)
+				offsetY = 0;
+			for (int x = offsetX; x < offsetX + w / GameManager.GAME_TILE_SIZE + 2
+					&& x < l.width; x++) {
+				for (int y = offsetY; y < offsetY + h / GameManager.GAME_TILE_SIZE
+						+ 3
+						&& y < l.height; y++) {
+					// g.drawImage(rc.tiles[map[x][y].tile],x*tileSize-screenX,y*tileSize-screenY,null);
+					//bi.setData(Art.Art.getTileFromTileNumber(map[x][y].id)
+						//	.getSprite().getData());
+					
+					
+					g.drawImage(Art.Art.getTileFromTileNumber(backmap[x][y].id)
+							.getSprite(), x * tileSize - screenX, y * tileSize
+							- screenY, null);
+				//if((map[x][y].id==1))
+						//g.drawImage(Art.Art.getTileFromTileNumber(map[x][y].id)
+						//		.getSprite(), x * tileSize - screenX, y * tileSize
+						//		- screenY, null);
+					
+				}
+			}
 		//g.drawImage(bi, 0,0, null);
 		
 

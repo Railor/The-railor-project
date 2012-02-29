@@ -59,7 +59,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	////////////////////////////////////////////////////////////////////////////////
 	int[] randomGrass = {Art.Art.BITMAP_TILE_GRASS.id};
 	Random random = new Random();
-	
+	int layer = 0;
 	////////////////////////////////////////////////////////////////////////////////
 	//Create a file chooser
 	JFileChooser fc;
@@ -227,7 +227,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	public void draw(Graphics g) {
 
 		// if (pm.STATE == GameState.EditorScreen) {
-		screen.drawLevelMap(level, g);
+		screen.drawLevelMap(level, g,layer!=0);
 		// }
 	}
 
@@ -278,7 +278,11 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	public void keyPressed(KeyEvent e) {
 		keys.keyPressed(e);
 		if (e.getKeyCode() == Keys.KEY_B) {
-			
+			if(layer==0)
+				layer=1;
+			else
+				layer=0;
+			System.out.println(layer);
 			//writeCurrentMapToFile();
 		}
 
@@ -300,8 +304,10 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 			//System.out.println(offsety);
 			ox = (mx + screen.screenX)	/ GameManager.GAME_TILE_SIZE;
 			oy = (my + screen.screenY) / GameManager.GAME_TILE_SIZE;
-
+			if(layer==1)
 			level.levelMap[ox][oy].id=currentTileId;
+			else
+				level.backMap[ox][oy].id = currentTileId;
 		}
 		
 		//System.out.println(currentTileId);

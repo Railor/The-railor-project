@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Art {
+	
 	public static String artLocation = "/";///WORKS FOR EDITOR
 	//public static String artLocation = "/railorgame/res/"; /// WORKS FOR JAR FILE
 	public static String artFileType = ".png";
@@ -64,7 +65,7 @@ public class Art {
 	public static BitmapTile BITMAP_TILE_GRASS_WALL11 = new BitmapTile("tiles",0,4,false);
 	public static BitmapTile BITMAP_TILE_GRASS_WALL12 = new BitmapTile("tiles",1,4,false);
 	public static BitmapTile BITMAP_TILE_GRASS_WALL13 = new BitmapTile("tiles",2,4,false);
-	
+	public static final BitmapTile BITMAP_TILE_DONTLOAD = null;
 	
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////
