@@ -30,6 +30,8 @@ import Mob.Mob;
 
 public class GameManager implements MouseListener,MouseMotionListener,MouseWheelListener{
 	// Create game window...
+	//omg imsppppppppp cooooooooooooooool
+	//omomomomomoomom
 	int TICKS_PER_SECOND = 30;
     double SKIP_TICKS = 1000 / TICKS_PER_SECOND;
     int MAX_FRAMESKIP = 5;
