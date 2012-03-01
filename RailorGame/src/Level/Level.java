@@ -135,11 +135,17 @@ public class Level {
 			//System.out.println(ix + "IX - IY" + iy);
 			if(ix < width && iy < height && !backs){
 				//System.out.println((tokens[x]));
+				if(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x]))!=null)
 			lv.tiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
+				else
+					lv.tiles[iy][ix] = new Tile(Art.Art.BITMAP_TILE_TRANS);
 				//lv.tiles[ix][iy] = new Tile(Art.Art.BITMAP_TILE_GRASS_WALL);
 			}
 			if(backs){
-				lv.backTiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
+				if(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x]))!=null)
+					lv.backTiles[iy][ix] = new Tile(Art.Art.getTileFromTileNumber(Integer.parseInt(tokens[x])));
+						else
+						lv.backTiles[iy][ix] = new Tile(Art.Art.BITMAP_TILE_TRANS);
 			}
 			if(ix<(width-1)){
 				ix++;

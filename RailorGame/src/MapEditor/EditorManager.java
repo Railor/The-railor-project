@@ -47,25 +47,29 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	long totalTime = 0;
 	long curTime = System.currentTimeMillis();
 	long lastTime = curTime;
-	public int scrollSpeed = 9;
+	public int scrollSpeed = 75;
 	public Keys keys = new Keys();
 	public String currentMapName = "level.txt";
 	public int currentTileId = 0;
 	int tileSize = GameManager.GAME_TILE_SIZE;
-	int tileCountWidth = 6;
+	int tileCountWidth = 12;
 	int tileCountHeight = 8;
 	public boolean mouseDown = false;
-	public int editorExtraWidth = 384;
+	public boolean buttonLeft = false;
+	public int editorExtraWidth = 768;
 	////////////////////////////////////////////////////////////////////////////////
-	int[] randomGrass = {Art.Art.BITMAP_TILE_GRASS.id};
+	int[] randomGrass = {Art.Art.BITMAP_TILE_GRASS.id, Art.Art.BITMAP_TILE_GRASS29.id,
+			Art.Art.BITMAP_TILE_GRASS30.id,
+			Art.Art.BITMAP_TILE_GRASS31.id,
+			Art.Art.BITMAP_TILE_GRASS32.id,};
 	Random random = new Random();
-	int layer = 0;
+	int layer = 2;
 	////////////////////////////////////////////////////////////////////////////////
 	//Create a file chooser
 	JFileChooser fc;
 	//In response to a button click:
 	public int getRandom(int[] rands){
-		return random.nextInt(rands.length);
+		return rands[random.nextInt(rands.length)];
 	}
 	public void starterup() {
 		pm.app.remove(pm.menuManager.mainMenuPanel);
@@ -144,11 +148,17 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 				//System.out.println(x);
 			} else {
 				// System.out.println("BREAKYY");
-				x = tileCountWidth * tileCountHeight;
-				break;
+				//x = tileCountWidth * tileCountHeight;
+				//break;
 
 				// }
 			}
+		}
+		for(int x = 0; x < ProgramManager.SCREEN_WIDTH / GameManager.GAME_TILE_SIZE + 1;x++){
+			g.drawLine(x * GameManager.GAME_TILE_SIZE - screen.screenX % GameManager.GAME_TILE_SIZE, 0, x * GameManager.GAME_TILE_SIZE - screen.screenX % GameManager.GAME_TILE_SIZE, ProgramManager.SCREEN_HEIGHT);
+		}
+		for(int y = 0; y < ProgramManager.SCREEN_HEIGHT / GameManager.GAME_TILE_SIZE;y++){
+			g.drawLine(0, y*GameManager.GAME_TILE_SIZE - screen.screenY % GameManager.GAME_TILE_SIZE, ProgramManager.SCREEN_WIDTH, y*GameManager.GAME_TILE_SIZE - screen.screenY % GameManager.GAME_TILE_SIZE);
 		}
 		for(int x = 0; x < tileCountWidth;x++){
 			g.drawLine(ProgramManager.SCREEN_WIDTH + x * tileSize, 0, ProgramManager.SCREEN_WIDTH + x * tileSize, ProgramManager.SCREEN_HEIGHT);
@@ -170,7 +180,7 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 			
 			g2d = bi.createGraphics();
 			g2d.setColor(background);
-			g2d.fillRect(0, 0, ProgramManager.SCREEN_WIDTH, ProgramManager.SCREEN_HEIGHT + editorExtraWidth);
+			g2d.fillRect(0, 0, ProgramManager.SCREEN_WIDTH + editorExtraWidth, ProgramManager.SCREEN_HEIGHT + editorExtraWidth);
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************
 			// **********************************************************************************************************************************************
@@ -293,12 +303,15 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 				layer=0;
 			else
 				layer++;
-			System.out.println(layer);
 			//writeCurrentMapToFile();
 		}
 
 	}
-
+	public int checkRandomTile(int asd){
+		if(asd == Art.Art.BITMAP_TILE_GRASS.id)
+		return getRandom(randomGrass);
+		return asd;
+	}
 	public void TileSelect(MouseEvent e) {
 		int mx = e.getX(), my = e.getY();
 		int ox, oy;// off screen select
@@ -317,10 +330,10 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 			//System.out.println(offsety);
 			ox = (mx + screen.screenX)	/ GameManager.GAME_TILE_SIZE;
 			oy = (my + screen.screenY) / GameManager.GAME_TILE_SIZE;
-			if(e.getButton() == MouseEvent.BUTTON1){
-			level.levelMap[ox][oy].id=currentTileId;
-			}else if(e.getButton() == MouseEvent.BUTTON3){
-				level.backMap[ox][oy].id = currentTileId;
+			if(buttonLeft){
+			level.levelMap[ox][oy].id=checkRandomTile(currentTileId);
+			}else{
+				level.backMap[ox][oy].id = checkRandomTile(currentTileId);
 			
 			}
 		}
@@ -330,6 +343,11 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 
 	public void mousePressed(MouseEvent e) {
 		mouseDown=true;
+		if(e.getButton() == MouseEvent.BUTTON1)
+			buttonLeft = true;
+		else if(e.getButton() == MouseEvent.BUTTON3)
+			buttonLeft = false;
+		
 			TileSelect(e);
 
 	}
@@ -381,11 +399,9 @@ public class EditorManager implements MouseListener,MouseMotionListener,MouseWhe
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		// TODO Auto-generated method stub
-		if(GameManager.GAME_TILE_SIZE + e.getWheelRotation() < 64 && GameManager.GAME_TILE_SIZE + e.getWheelRotation() > 3){
+		if(GameManager.GAME_TILE_SIZE + e.getWheelRotation() < 65 && GameManager.GAME_TILE_SIZE + e.getWheelRotation() > 3){
 			
 			//	if(e.getWheelRotation() < 0)
-			screen.addScreenX((GAME_TILE_SIZE) * e.getWheelRotation());
-			screen.addScreenY((GAME_TILE_SIZE) * e.getWheelRotation());
 			//System.out.println(screen.screenX);
 			
 		GameManager.GAME_TILE_SIZE+=e.getWheelRotation();

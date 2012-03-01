@@ -27,6 +27,7 @@ public class ProgramManager implements KeyListener, MouseListener {
 	JMenuBar menuBarEditor;
 	JMenu menuEditorFile;
 	JMenuItem menuItemMenuScreen;
+	JMenuItem menuItemNewMap;
 	JMenuItem menuItemEditorSave;
 	JMenuItem menuItemEditorLoad;
 	JMenuItem menuItemExit;
@@ -59,6 +60,7 @@ public class ProgramManager implements KeyListener, MouseListener {
 		menuBarEditor = new JMenuBar();
 		menuEditorFile = new JMenu("File");
 		menuItemMenuScreen = new JMenuItem("Menu Screen");
+		menuItemNewMap = new JMenuItem("New Map");
 		menuItemEditorSave = new JMenuItem("Save Game");
 		menuItemEditorSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,6 +90,7 @@ public class ProgramManager implements KeyListener, MouseListener {
 		});
 		menuBarEditor.add(menuEditorFile);
 		menuEditorFile.add(menuItemMenuScreen);
+		menuEditorFile.add(menuItemNewMap);
 		menuEditorFile.add(menuItemEditorSave);
 		menuEditorFile.add(menuItemEditorLoad);
 		menuEditorFile.add(menuItemExit);

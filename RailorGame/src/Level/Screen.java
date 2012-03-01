@@ -58,6 +58,8 @@ public class Screen {
 				- ProgramManager.SCREEN_HEIGHT;
 		if (screenX + x < boundaryX && screenX + x > 0)
 			screenX += x;
+		if(screenX + x <= 0)
+			screenX = 0;
 	}
 
 	public void addScreenY(int y) {
